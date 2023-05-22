@@ -2,7 +2,7 @@ package big.knaaledge.dungeon_n_dampness.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple200 = Color(0xFFBB86FC)
-val Purple500 = Color(0xFF6200EE)
-val Purple700 = Color(0xFF3700B3)
-val Teal200 = Color(0xFF03DAC5)
+//Color(0xFF282828)
+val Black = Color(0xFF000000)
+val TextGreen = Color(0xFF7FFF00)
+val PhosphorGreen = Color(0xFF41FF00)

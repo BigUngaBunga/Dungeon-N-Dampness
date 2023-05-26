@@ -1,0 +1,27 @@
+[
+    {
+        "scene_index": "-1",
+        "descriptions": [
+            {
+                "required_flags": ["example_flag"],
+                "description": "Lorem ipsum dolor sit amet"
+            },
+            {
+                "required_flags": [""],
+                "description": "Lorem ipsum dolor sit amet"
+            }
+        ],
+        "actions": [
+            {
+                "message": "Explore the room",
+                "description": "You stand up and take a look around.",
+                "go_to_scene": "1"
+            },
+            {
+                "message": "Spin around",
+                "description": "You start to get nauseaus.",
+                "go_to_scene": "-1"
+            }
+        ]
+    },
+]

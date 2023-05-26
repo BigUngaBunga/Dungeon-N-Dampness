@@ -1,0 +1,61 @@
+[
+    {
+        "scene_index": "1",
+        "descriptions": [
+            {
+                "required_flags": [""],
+                "description": "You awaken in a damp cell. You are scheduled for execution. With a slight preference for living you decide to escape instead."
+            }
+        ],
+        "actions": [
+            {
+                "message": "Explore the room",
+                "description": "You stand up and take a look around.",
+                "go_to_scene": "2"
+            },
+            {
+                "message": "Go to sleep",
+                "description": "You go back to sleep.",
+                "go_to_scene": "1"
+            }
+        ]
+    },
+    {
+        "scene_index": "2",
+        "descriptions": [
+            {
+                "required_flags": ["door_unlocked", "box_moved"],
+                "description": "The metal door stands open. The wooden box stands under the ceiling grate. The floor is cold stone covered in rubble."
+            },
+            {
+                "required_flags": ["door_unlocked"],
+                "description": "The metal door stands open. The only source of light is a grated opening in the ceiling. The floor is cold stone covered in rubble."
+            },
+            {
+                "required_flags": ["box_moved"],
+                "description": "A heavy door bars the exit. The wooden box stands under the ceiling grate. The floor is cold stone covered in rubble."
+            },
+            {
+                "required_flags": [""],
+                "description": "A heavy door bars the exit. The only source of light is a grated opening in the ceiling. The floor is cold stone covered in rubble."
+            }
+        ],
+        "actions": [
+            {
+                "message": "Approach the door",
+                "description": "You step towards the only apparent exit.",
+                "go_to_scene": "3"
+            },
+            {
+                "message": "Examine the floor",
+                "description": "YPerhaps there is something useful here?",
+                "go_to_scene": "4"
+            },
+            {
+                "message": "Check the ceiling grate",
+                "description": "It’s the only source of light in here.",
+                "go_to_scene": "5"
+            }
+        ]
+    }
+]

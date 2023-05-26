@@ -1,7 +1,6 @@
 package big.knaaledge.dungeon_n_dampness
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
@@ -13,14 +12,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import big.knaaledge.dungeon_n_dampness.components.GetActionButton
 import big.knaaledge.dungeon_n_dampness.components.SlowText
-import big.knaaledge.dungeon_n_dampness.data.ActionItem
+import big.knaaledge.dungeon_n_dampness.data.Action
+import big.knaaledge.dungeon_n_dampness.data.Scene
 import big.knaaledge.dungeon_n_dampness.ui.theme.DungeonNDampnessTheme
 import kotlinx.coroutines.*
 
 var output = mutableStateListOf<String>()
 var messageQueue = mutableStateListOf<String>()
 var readLines = mutableStateOf(0)
-var possibleActions = mutableStateListOf<ActionItem>()
+var possibleActions = mutableStateListOf<Action>()
+
+var scenes = mutableStateListOf<Scene>()
+var currentScene = mutableStateOf(0)
 
 var addedInitialText = mutableStateOf(false)
 var addedInitialActions = mutableStateOf(false)
@@ -91,6 +94,11 @@ fun EnqueueMessage(message: String){
         DequeueMessage()
 }
 
+fun <T>EnqueueMessage(vararg messages: T){
+    for (t in messages)
+        EnqueueMessage(t.toString())
+}
+
 fun ClearOutput(){
     messageQueue.clear()
     output.clear()
@@ -111,7 +119,7 @@ fun <T>ClearOutput(vararg messages: T){
 }
 //endregion
 
-//region Action Buttons
+//region Actions
 @Composable
 fun AddButtons(){
     var actionsIncluded = 0
@@ -141,23 +149,45 @@ fun AddInitialActions(){
     if(addedInitialActions.value)
         return
     addedInitialActions.value = true
-    var inventoryAction = ActionItem( message = "Check inventory",
-        description = "It's a wonder your pockets still hold up",
-        action = { EnqueueMessage("Inventoooory")})
-    inventoryAction.action = { EnqueueMessage(inventoryAction.description) }
-
-    possibleActions.add(inventoryAction)
+    ClearActions()
     possibleActions.add(
-        ActionItem(message = "Spin around",
+        Action(message = "Spin around",
             description = "You spin right round till' you're dizzy",
             action = {EnqueueMessage("You spin right round till' you're dizzy")}))
     possibleActions.add(
-        ActionItem(message = "Go to sleep",
+        Action(message = "Go to sleep",
             description = "The world fades to black",
             action = { ClearOutput("The world fades to black",
                 "You wake up in the middle of nowhere")
             }))
 }
 
+fun ClearActions(includeInventory: Boolean = true){
+    possibleActions.clear()
+    if (includeInventory){
+        var inventoryAction = Action( message = "Check inventory",
+            description = "It's a wonder your pockets still hold up")
+        inventoryAction.action = { StartScene(inventoryAction.description, 0) }
+        possibleActions.add(inventoryAction)
+    }
+}
+
+//endregion
+
+//region Scenes
+fun StartScene(actionDescription: String, sceneIndex: Int, clearLog: Boolean = true){
+    currentScene.value = sceneIndex
+    if (clearLog){
+        ClearOutput(actionDescription, scenes[sceneIndex].GetDescription())
+    }
+    else{
+        EnqueueMessage(actionDescription, scenes[sceneIndex].GetDescription())
+    }
+
+}
+
+fun ReadScenesFromJson(){
+
+}
 //endregion
 

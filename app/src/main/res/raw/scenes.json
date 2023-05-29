@@ -1,5 +1,72 @@
 [
     {
+        "scene_index": "0",
+        "descriptions": [
+            {
+                "required_flags": [""],
+                "description": "You rummage around in your pockets"
+            }
+        ],
+        "actions": [
+            {
+                "required_flags": ["has_key"],
+                "message": "Key ring",
+                "description": "A whole bunch of keys, maybe one of them leads to freedom!",
+                "go_to_scene": "",
+                "perform_once": "false"
+            },
+            {
+                "required_flags": ["has_file"],
+                "message": "File",
+                "description": "A rusty file. It would make quick work of a certain few metal bars.",
+                "go_to_scene": "",
+                "perform_once": "false"
+            },
+            {
+                "required_flags": ["has_book"],
+                "message": "Large book",
+                "description": "A large musty tome containing information on herbalism.",
+                "go_to_scene": "",
+                "perform_once": "false"
+            },
+            {
+                "required_flags": ["has_herb"],
+                "message": "Herb",
+                "description": "The herbology book suggests these if you’re suffering from insomnia.",
+                "go_to_scene": "",
+                "perform_once": "false"
+            },
+            {
+                "required_flags": ["has_leg"],
+                "message": "A leg",
+                "description": "It’s something to stand on.",
+                "go_to_scene": "",
+                "perform_once": "false"
+            },
+            {
+                "required_flags": ["has_arm"],
+                "message": "Arm",
+                "description": "It’s a constitutional right to bear one.",
+                "go_to_scene": "",
+                "perform_once": "false"
+            },
+            {
+                "required_flags": ["has_boomerang"],
+                "message": "Boomerang",
+                "description": "It doesn’t make a boom. That’s a real bummer.",
+                "go_to_scene": "",
+                "perform_once": "false"
+            },
+            {
+                "required_flags": ["has_bucket"],
+                "message": "Bucket",
+                "description": "It’s a sturdy old water bucket. It's so large your head could comfortably fit in it.",
+                "go_to_scene": "",
+                "perform_once": "false"
+            }
+        ]
+    },
+    {
         "scene_index": "1",
         "descriptions": [
             {
@@ -9,14 +76,18 @@
         ],
         "actions": [
             {
+                "required_flags": [""],
                 "message": "Explore the room",
                 "description": "You stand up and take a look around.",
-                "go_to_scene": "2"
+                "go_to_scene": "2",
+                "perform_once": "false"
             },
             {
+                "required_flags": [""],
                 "message": "Go to sleep",
                 "description": "You go back to sleep.",
-                "go_to_scene": "1"
+                "go_to_scene": "1",
+                "perform_once": "false"
             }
         ]
     },
@@ -42,19 +113,32 @@
         ],
         "actions": [
             {
+                "required_flags": ["!door_unlocked"],
                 "message": "Approach the door",
                 "description": "You step towards the only apparent exit.",
-                "go_to_scene": "3"
+                "go_to_scene": "3",
+                "perform_once": "false"
             },
             {
+                "required_flags": ["door_unlocked"],
+                "message": "Go through the door",
+                "description": "You walk past the open metal door.",
+                "go_to_scene": "6",
+                "perform_once": "false"
+            },
+            {
+                "required_flags": [""],
                 "message": "Examine the floor",
-                "description": "YPerhaps there is something useful here?",
-                "go_to_scene": "4"
+                "description": "Perhaps there is something useful here?",
+                "go_to_scene": "4",
+                "perform_once": "false"
             },
             {
+                "required_flags": [""],
                 "message": "Check the ceiling grate",
                 "description": "It’s the only source of light in here.",
-                "go_to_scene": "5"
+                "go_to_scene": "5",
+                "perform_once": "false"
             }
         ]
     }

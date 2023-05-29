@@ -1,6 +1,7 @@
 package big.knaaledge.dungeon_n_dampness.data
 
 import androidx.compose.runtime.snapshots.SnapshotStateList
+import big.knaaledge.dungeon_n_dampness.Player
 
 var descriptions : MutableList<String> = mutableListOf<String>()
 var actions : MutableList<Action> = mutableListOf<Action>()
@@ -19,9 +20,13 @@ class Scene() {
         actions.add(action)
     }
 
-    fun GetActions(possibleActions: SnapshotStateList<Action>){
+    fun PopAction(){
+        actions.removeLast()
+    }
+
+    fun GetActions(possibleActions: SnapshotStateList<Action>, player: Player){
         for (action in actions){
-            if (action.IsAvailable()){
+            if (action.IsAvailable(player)){
                 possibleActions.add(action)
             }
         }

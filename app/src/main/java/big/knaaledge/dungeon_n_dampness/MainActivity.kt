@@ -3,6 +3,7 @@ package big.knaaledge.dungeon_n_dampness
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.interaction.DragInteraction
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -167,7 +168,11 @@ fun ClearActions(includeInventory: Boolean = true){
     if (includeInventory){
         var inventoryAction = Action( message = "Check inventory",
             description = "It's a wonder your pockets still hold up")
-        inventoryAction.action = { StartScene(inventoryAction.description, 0) }
+        inventoryAction.action = {
+            scenes.get(0).PopAction()
+            scenes.get(0).AddAction(Action("Go back", "You stop looking at your stuff and get back to the task at hand.",
+                action = { StartScene("You stop looking at your stuff and get back to the task at hand.", currentScene.value) }))
+            StartScene(inventoryAction.description, 0) }
         possibleActions.add(inventoryAction)
     }
 }

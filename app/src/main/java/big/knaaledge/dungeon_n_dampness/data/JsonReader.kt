@@ -1,6 +1,7 @@
 package big.knaaledge.dungeon_n_dampness.data
 
 import android.content.Context
+import big.knaaledge.dungeon_n_dampness.R
 import java.io.InputStreamReader
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -8,15 +9,13 @@ import com.google.gson.reflect.TypeToken
 class JsonReader(private val context: Context) {
 
     private val gson = Gson()
-//TODO gör om till att läsa in scener
+    fun readScenes() : List<Scene>{
+        val inputStream = context.resources.openRawResource(R.raw.scenes)
 
-//    fun readGroups(): List<Group>{
-//        val inputStream = context.resources.openRawResource(R.raw.groups)
-//
-//        val itemType = object : TypeToken<List<GroupResponse>>() {}.type
-//        val reader = InputStreamReader(inputStream)
-//        return gson.fromJson<List<GroupResponse>>(reader, itemType).map {
-//            it.toGroup()
-//        }
-//    }
+        val itemType = object : TypeToken<List<SceneResponse>>() {}.type
+        val reader = InputStreamReader(inputStream)
+        return gson.fromJson<List<SceneResponse>>(reader, itemType).map {
+            it.toScene()
+        }
+    }
 }

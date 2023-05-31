@@ -11,6 +11,8 @@ class Player {
     init {
         AddFlags()
         AddItemFlags()
+
+        Log.e("DEBUG", "Initialised player")
     }
 
     private fun AddFlags(){
@@ -23,6 +25,11 @@ class Player {
         flags.set("door_unlocked", false)
         flags.set("in_first_cell", true)
         flags.set("cat_be_ded", Random.nextInt(0, 2) == 0)
+        flags.set("file_bars_1", false)
+        flags.set("file_bars_2", false)
+        flags.set("file_bars_3", false)
+        flags.set("sleepy_guard", false)
+        flags.set("herb_mah_drink", false)
     }
 
     private fun AddItemFlags(){
@@ -72,7 +79,7 @@ class Player {
     fun SetFlags(flagString: String){
         val parsedFlags = flagString.split(", ")
         for (flag in parsedFlags){
-            flags[flag.substringAfter('!')] = flag.first() == '!'
+            flags[flag.substringAfter('!')] = flag.first() != '!'
         }
     }
 }

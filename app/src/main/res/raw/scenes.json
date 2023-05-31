@@ -189,7 +189,7 @@
         "scene_index": "5",
         "descriptions": [
             {
-                "required_flags": "moved_box",
+                "required_flags": "box_moved",
                 "text": "A small grate sits in the ceiling letting through the candle light and snores from the room above. You could probably squeeze through if you could get rid of the bars. The wooden box stands right beneath it."
             },
             {
@@ -206,7 +206,7 @@
             {
                 "message": "Climb the box",
                 "description": "Now you’re thinking outside it!",
-                "required_flags": "moved_box",
+                "required_flags": "box_moved",
                 "go_to_scene": "8"
             },
             {
@@ -255,24 +255,25 @@
             {
                 "message": "Push it real good",
                 "description": "You push it under the grate.",
-                "set_flags": "moved_box"
+                "required_flags": "!box_moved",
+                "set_flags": "box_moved",
+                "perform_once": true
             },
             {
                 "message": "Check inside",
                 "description": "You find a dead cat.",
-                "required_flags": "cat_be_ded",
+                "required_flags": "cat_be_ded, !box_moved",
                 "perform_once": true
             },
             {
                 "message": "Check inside",
                 "description": " A confused cat stares back at you.",
-                "required_flags": "!cat_be_ded",
+                "required_flags": "!cat_be_ded, !box_moved",
                 "perform_once": true
             },
             {
                 "message": "Go back",
                 "description": "You step away from the corner.",
-                "required_flags": "!cat_be_ded",
                 "go_to_scene": "2"
             }
         ]
@@ -287,19 +288,237 @@
         ],
         "actions": [
             {
-                "message": "Explore the room",
-                "description": "You stand up and take a look around.",
-                "required_flags": "",
-                "go_to_scene": "1"
+                "message": "Reach for the sleeping guard",
+                "description": "Careful not to wake him!",
+                "go_to_scene": "10"
             },
             {
-                "message": "Spin around",
-                "description": "You start to get nauseaus.",
-                "required_flags": "",
+                "message": "Reach for the guards drink",
+                "description": "Surely he wouldn’t mind?",
+                "required_flags": "!herb_mah_drink",
+                "go_to_scene": "11"
+            },
+            {
+                "message": "File the bars",
+                "description": "The guard snores loudly as you file",
+                "required_flags": "has_file, sleepy_guard, !file_bars_1",
+                "set_flags": "file_bars_1"
+            },
+            {
+                "message": "Continue filing the bars",
+                "description": "The amount of noise makes you feel thankful for the herbs",
+                "required_flags": "has_file, sleepy_guard, file_bars_1, !file_bars_2",
+                "set_flags": "file_bars_2"
+            },
+            {
+                "message": "Continue filing the bars",
+                "description": "TODO you escape!",
+                "required_flags": "has_file, sleepy_guard, file_bars_2, !file_bars_3",
+                "set_flags": "file_bars_3"
+            },
+            {
+                "message": "File the bars",
+                "description": "The guard stirs at the screeching sound",
+                "required_flags": "has_file, !sleepy_guard, !file_bars_1",
+                "set_flags": "file_bars_1"
+            },
+            {
+                "message": "Continue filing the bars",
+                "description": "The guard wakes",
+                "required_flags": "has_file, file_bars_1, !sleepy_guard, !file_bars_2",
+                "set_flags": "file_bars_2"
+            },
+            {
+                "message": "Continue filing the bars",
+                "description": "TODO Get Caught",
+                "required_flags": "has_file, file_bars_2, !sleepy_guard, !file_bars_3",
+                "set_flags": "file_bars_3"
+            },
+            {
+                "message": "Climb back down",
+                "description": "You climb back down to the floor.",
+                "set_flags": "!file_bars_1, !file_bars_2 !file_bars_3",
+                "go_to_scene": "2"
+            }
+        ]
+    },
+    {
+        "scene_index": "9",
+        "descriptions": [
+            {
+                "required_flags": "slab_lifted",
+                "text": "This cell hasn't had a living occupant in some time, made obvious by the corpse slumped in a corner. Against the opposite wall of the door stands a rickety table. The center of the floor disappears into a dark hole."
+            },
+            {
+                "required_flags": "!slab_lifted",
+                "text": "This cell hasn't had a living occupant in some time, made obvious by the corpse slumped in a corner. Against the opposite wall of the door stands a rickety table. The center of the floor is covered by a large slab of wood"
+            }
+        ],
+        "actions": [
+            {
+                "message": "Check the table",
+                "description": "You head on over to the table.",
+                "go_to_scene": "12"
+            },
+            {
+                "message": "Examine the corpse",
+                "description": "Haven’t you been told to stay away from dead bodies?",
+                "go_to_scene": "13"
+            },
+            {
+                "message": "Approach the wooden slab",
+                "description": "It does look a bit out of place.",
+                "required_flags": "!slab_lifted",
+                "go_to_scene": "14"
+            },
+            {
+                "message": "Approach the hole in the floor",
+                "description": "Careful not to trip!",
+                "required_flags": "slab_lifted",
+                "go_to_scene": "15"
+            }
+        ]
+    },
+    {
+        "scene_index": "10",
+        "descriptions": [
+            {
+                "required_flags": "has_key",
+                "text": "The unkempt guard is snoring loudly. His belt locks lonely without the keyring."
+            },
+            {
+                "required_flags": "!has_key",
+                "text": "The unkempt guard is snoring loudly. From his belt dangles a key ring with an array of different coloured and shaped keys."
+            }
+        ],
+        "actions": [
+            {
+                "message": "Take the keys",
+                "description": "You sneakily slide the key ring of the guards belt. You only make a lot of noise, but the guard doesn’t notice.",
                 "perform_once": true,
-                "set_flags": ""
+                "set_flags": "has_keys"
+            },
+            {
+                "message": "Wake the guard",
+                "description": "He scowls at you, takes a swig from the mug and then promptly goes back to sleep",
+                "required_flags": "!herb_mah_drink"
+            },
+            {
+                "message": "Wake the guard",
+                "description": "He scowls at you, downs the rest of the mug and then promptly goes back to sleep. If the herbology book was right it ought to be a deep sleep",
+                "required_flags": "herb_mah_drink",
+                "perform_once": true,
+                "set_flags": "sleepy_guard"
+            },
+            {
+                "message": "Reach for something else",
+                "description": "Better not risk it",
+                "go_to_scene": "8"
+            }
+        ]
+    },
+    {
+        "scene_index": "11",
+        "descriptions": [
+            {
+                "required_flags": "",
+                "text": "A mug stands on the floor next to the bench. It is half full, or half empty."
+            }
+        ],
+        "actions": [
+            {
+                "message": "Pick it up",
+                "description": "It doesn’t fit through the grate.",
+                "perform_once": true
+            },
+            {
+                "message": "Spit in it",
+                "description": "Were you never taught table manners?",
+                "perform_once": true
+            },
+            {
+                "message": "Put the herb in it",
+                "description": "You put the herb in the drink.",
+                "required_flags": "has_herb",
+                "set_flags": "!has_herb",
+                "perform_once": true
+            },
+            {
+                "message": "Leave the mug be",
+                "description": "You reach for something else.",
+                "go_to_scene": "8"
+            }
+        ]
+    },
+    {
+        "scene_index": "12",
+        "descriptions": [
+            {
+                "required_flags": "!has_book",
+                "text": "The table wobbles as you step closer to it. Atop it rests a moldy tome of herb-lore."
+            },
+            {
+                "required_flags": "has_book",
+                "text": "The table wobbles as you step closer to it. There's nothing but dust and cloth scraps on it"
+            }
+        ],
+        "actions": [
+            {
+                "message": "Pick up the herbology book.",
+                "description": "Now you know a lot more about plants!\n",
+                "required_flags": "!has_book",
+                "set_flags": "has_book"
+            },
+            {
+                "message": "Turn back to the rest of the room",
+                "description": "Let’s table this topic for now.",
+                "go_to_scene": "9"
+            }
+        ]
+    },
+    {
+        "scene_index": "13",
+        "descriptions": [
+            {
+                "required_flags": "",
+                "text": "The prisoner’s body sits half leaning against a corner. It’s past the process of decay and doesn’t smell too bad. It’s dressed in similar rags to yourself."
+            }
+        ],
+        "actions": [
+            {
+                "message": "Search the corpse’s pocketses",
+                "description": "You find a precious file.",
+                "required_flags": "!has_file",
+                "set_flags": "has_file",
+                "perform_once": true
+            },
+            {
+                "message": "Back away",
+                "description": "You let your disgust get the better of you.",
+                "go_to_scene": "9"
+            }
+        ]
+    },
+    {
+        "scene_index": "14",
+        "descriptions": [
+            {
+                "required_flags": "",
+                "text": "A large slab of wood rests on the floor. It looks heavy, but you are strong."
+            }
+        ],
+        "actions": [
+            {
+                "message": "Lift the slab of wood",
+                "description": "The wood creaks loudly. Or was that your back?",
+                "set_flags": "slab_lifted",
+                "go_to_scene": "15"
+            },
+            {
+                "message": "Look at something else",
+                "description": "You didn't even lift bro.",
+                "go_to_scene": "9"
             }
         ]
     }
-
 ]

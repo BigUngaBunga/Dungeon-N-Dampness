@@ -61,54 +61,6 @@ fun Navigation(){
     }
 }
 
-@Composable
-fun PrintOutput() {
-    if (output.size <= 0)
-        DequeueMessage()
-    LazyColumn(
-        Modifier
-            .padding(16.dp)
-            .padding(0.dp, 0.dp, 0.dp, 200.dp)){
-        items(output){message ->
-            SlowText(message = message, readSlowly = readLines.value <= output.lastIndexOf(message),
-                onFinishedWriting = {DequeueMessage(); readLines.value++ })
-        }
-    }
-}
-
-fun DequeueMessage(){
-    if (messageQueue.size <= 0)
-        return
-    var message = messageQueue.first()
-    messageQueue.removeFirst()
-    output.add("> $message")
-}
-
-fun EnqueueMessage(message: String){
-    messageQueue.add(message)
-    if (readLines.value >= output.size)
-        DequeueMessage()
-}
-
-fun ClearOutput(){
-    messageQueue.clear()
-    output.clear()
-    readLines.value = 0
-}
-
-fun <T>ClearOutput(vararg messages: T){
-    messageQueue.clear()
-    output.clear()
-    readLines.value = 0
-
-    CoroutineScope(Dispatchers.Main).launch {
-        delay(100)
-        for (t in messages)
-            EnqueueMessage(t.toString())
-
-    }
-}
-
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {

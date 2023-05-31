@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun CreateGameScreen() {
-    AddStartScene()
+    StartGame()
     PrintOutput()
     AddButtons()
 }
@@ -47,16 +47,23 @@ fun AddActionButton(actionIdex: Int, modifier: Modifier){
         GetActionButton(possibleActions[actionIdex], modifier)
 }
 
-fun AddStartScene(){
+fun StartGame(){
     if(addedInitialActions.value)
         return
     addedInitialActions.value = true
-    StartScene("Welcome to Dungeon & Dampness.", 1)
+    ClearOutput(scenes[sceneIndexStack.last()].GetDescription(player.value))
+    ClearActions()
+    scenes[sceneIndexStack.last()].GetActions(possibleActions, player.value)
 }
 
-fun ClearActions(includeInventory: Boolean = true){
+fun UpdateActions(){
+    ClearActions()
+    scenes[sceneIndexStack.last()].GetActions(possibleActions, player.value)
+}
+
+fun ClearActions(){
     possibleActions.clear()
-    if (includeInventory){ //TODO only include if have item
+    if (player.value.AnyFlagSet(player.value.itemFlags.value)){ //TODO only include if have item
         var inventoryAction = Action( message = "Check inventory",
             description = "It's a wonder your pockets still hold up")
         inventoryAction.action = {
@@ -121,8 +128,7 @@ fun StartScene(actionDescription: String, sceneIndex: Int, includeInventory: Boo
     if (!goBack)
         sceneIndexStack.add(sceneIndex)
     ClearOutput(actionDescription, scenes[sceneIndex].GetDescription(player.value))
-    ClearActions(includeInventory)
-    scenes[sceneIndex].GetActions(possibleActions, player.value)
+    UpdateActions()
 }
 
 fun StartScene(actionDescription: String){

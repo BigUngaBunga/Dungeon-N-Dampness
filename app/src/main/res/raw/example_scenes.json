@@ -3,25 +3,28 @@
         "scene_index": "-1",
         "descriptions": [
             {
-                "required_flags": ["example_flag"],
-                "description": "Lorem ipsum dolor sit amet"
+                "required_flags": "",
+                "text": ""
             },
             {
-                "required_flags": [""],
-                "description": "Lorem ipsum dolor sit amet"
+                "required_flags": "",
+                "text": ""
             }
         ],
         "actions": [
             {
                 "message": "Explore the room",
                 "description": "You stand up and take a look around.",
+                "required_flags": "",
                 "go_to_scene": "1"
             },
             {
                 "message": "Spin around",
                 "description": "You start to get nauseaus.",
-                "go_to_scene": "-1"
+                "required_flags": "",
+                "perform_once": true,
+                "set_flags": ""
             }
         ]
-    },
+    }
 ]

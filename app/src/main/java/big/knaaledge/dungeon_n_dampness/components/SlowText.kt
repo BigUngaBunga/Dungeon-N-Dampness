@@ -39,13 +39,13 @@ fun SlowText(message : String, readSlowly : Boolean = true, onFinishedWriting: (
     val output = remember{ mutableStateOf("")}
     var textContainer = remember { SlowTextContainer(message, output) }
 
-    Text(text = "${output.value}", modifier = Modifier.padding(0.dp, 2.dp))//, lineHeight = 26.sp
+    Text(text = "${output.value}", modifier = Modifier.padding(0.dp, 2.dp))
 
     LaunchedEffect(key1 = textContainer){
         coroutineScope{
             var writingJob = launch{
                 textContainer.UpdateTextSlowly(readSlowly = readSlowly,
-                                                delayTime = 42, newLineFactor = 5)}
+                                                delayTime = 30, newLineFactor = 5)}
             writingJob.join()
             onFinishedWriting()
         }

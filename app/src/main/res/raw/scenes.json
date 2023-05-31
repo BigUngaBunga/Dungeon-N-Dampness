@@ -1,0 +1,155 @@
+[
+    {
+        "scene_index": "0",
+        "descriptions": [
+            {
+                "required_flags": "",
+                "text": "You rummage around in your pockets"
+            }
+        ],
+        "actions": [
+            {
+                "message": "Key ring",
+                "description": "A whole bunch of keys, maybe one of them leads to freedom!",
+                "required_flags": "has_key",
+                "perform_once": "false",
+                "go_to_scene": ""
+
+            },
+            {
+
+                "message": "File",
+                "description": "A rusty file. It would make quick work of a certain few metal bars.",
+                "required_flags": "has_file",
+                "perform_once": "false",
+                "go_to_scene": ""
+            },
+            {
+
+                "message": "Large book",
+                "description": "A large musty tome containing information on herbalism.",
+                "required_flags": "has_book",
+                "perform_once": "false",
+                "go_to_scene": ""
+            },
+            {
+                "message": "Herb",
+                "description": "The herbology book suggests these if you’re suffering from insomnia.",
+                "required_flags": "has_herb",
+                "perform_once": "false",
+                "go_to_scene": ""
+            },
+            {
+                "message": "A leg",
+                "description": "It’s something to stand on.",
+                "required_flags": "has_leg",
+                "perform_once": "false",
+                "go_to_scene": ""
+            },
+            {
+                "message": "Arm",
+                "description": "It’s a constitutional right to bear one.",
+                "required_flags": "has_arm",
+                "perform_once": "false",
+                "go_to_scene": ""
+            },
+            {
+                "message": "Boomerang",
+                "description": "It doesn’t make a boom. That’s a real bummer.",
+                "required_flags": "has_boomerang",
+                "perform_once": "false",
+                "go_to_scene": ""
+            },
+            {
+                "message": "Bucket",
+                "description": "It’s a sturdy old water bucket. It's so large your head could comfortably fit in it.",
+                "required_flags": "has_bucket",
+                "perform_once": "false",
+                "go_to_scene": ""
+            },
+            {
+                "message": "Go back",
+                "description": "You get back to the matter at hand.",
+                "required_flags": "",
+                "perform_once": "false",
+                "go_to_scene": "1"
+            }
+        ]
+    },
+    {
+        "scene_index": "1",
+        "descriptions": [
+            {
+                "required_flags": "",
+                "text": "You awaken in a damp cell. You are scheduled for execution. With a slight preference for living you decide to escape instead."
+            }
+        ],
+        "actions": [
+            {
+                "message": "Explore the room",
+                "description": "You stand up and take a look around.",
+                "required_flags": "",
+                "perform_once": "false",
+                "go_to_scene": "2"
+            },
+            {
+                "message": "Go to sleep",
+                "description": "You go back to sleep.",
+                "required_flags": "",
+                "perform_once": "false",
+                "go_to_scene": "1"
+            }
+        ]
+    },
+    {
+        "scene_index": "2",
+        "descriptions": [
+            {
+                "required_flags": "door_unlocked, box_moved",
+                "text": "The metal door stands open. The wooden box stands under the ceiling grate. The floor is cold stone covered in rubble."
+            },
+            {
+                "required_flags": "door_unlocked",
+                "text": "The metal door stands open. The only source of light is a grated opening in the ceiling. The floor is cold stone covered in rubble."
+            },
+            {
+                "required_flags": "box_moved",
+                "text": "A heavy door bars the exit. The wooden box stands under the ceiling grate. The floor is cold stone covered in rubble."
+            },
+            {
+                "required_flags": "",
+                "text": "A heavy door bars the exit. The only source of light is a grated opening in the ceiling. The floor is cold stone covered in rubble."
+            }
+        ],
+        "actions": [
+            {
+                "message": "Approach the door",
+                "description": "You step towards the only apparent exit.",
+                "required_flags": "!door_unlocked",
+                "perform_once": "false",
+                "go_to_scene": "3"
+            },
+            {
+                "message": "Go through the door",
+                "description": "You walk past the open metal door.",
+                "required_flags": "door_unlocked",
+                "perform_once": "false",
+                "go_to_scene": "6"
+            },
+            {
+                "message": "Examine the floor",
+                "description": "Perhaps there is something useful here?",
+                "required_flags": "",
+                "perform_once": "false",
+                "go_to_scene": "4"
+            },
+            {
+                "message": "Check the ceiling grate",
+                "description": "It’s the only source of light in here.",
+                "required_flags": "",
+                "perform_once": "false",
+                "go_to_scene": "5"
+            }
+        ]
+    }
+]

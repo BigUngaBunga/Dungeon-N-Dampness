@@ -11,10 +11,10 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.dp
-import big.knaaledge.dungeon_n_dampness.data.ActionItem
+import big.knaaledge.dungeon_n_dampness.data.Action
 
 @Composable
-fun GetActionButton(actionItem: ActionItem = ActionItem(), modifier: Modifier = Modifier) {
+fun GetActionButton(actionItem: Action = Action(), modifier: Modifier = Modifier) {
     val colour = MaterialTheme.colors.primary
 
     if (actionItem.message == ""){

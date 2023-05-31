@@ -4,23 +4,31 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.interaction.DragInteraction
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import big.knaaledge.dungeon_n_dampness.JSON.JsonReader
 import big.knaaledge.dungeon_n_dampness.components.GetActionButton
 import big.knaaledge.dungeon_n_dampness.components.SlowText
-import big.knaaledge.dungeon_n_dampness.data.ActionItem
+import big.knaaledge.dungeon_n_dampness.data.Action
+import big.knaaledge.dungeon_n_dampness.data.Scene
 import big.knaaledge.dungeon_n_dampness.ui.theme.DungeonNDampnessTheme
 import kotlinx.coroutines.*
 
 var output = mutableStateListOf<String>()
 var messageQueue = mutableStateListOf<String>()
 var readLines = mutableStateOf(0)
-var possibleActions = mutableStateListOf<ActionItem>()
+var possibleActions = mutableStateListOf<Action>()
+var sceneIndexStack = mutableStateListOf<Int>(1)
+
+var scenes = mutableStateListOf<Scene>()
+var player = mutableStateOf(Player())
 
 var addedInitialText = mutableStateOf(false)
 var addedInitialActions = mutableStateOf(false)
@@ -29,7 +37,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        ReadScenesFromJson()
         setContent {
             AddInitialText()
             AddInitialActions()
@@ -43,6 +51,21 @@ class MainActivity : ComponentActivity() {
                     AddButtons()
                 }
             }
+        }
+    }
+
+    fun ReadScenesFromJson(){
+        var reader = JsonReader(this)
+        var sceneList = reader.readScenes()
+        for (scene in sceneList){
+            scenes.add(scene)
+        }
+
+        var counter = 0
+        for (scene in scenes){
+            Log.e("SCENE", "Displaying scene ${++counter}")
+            Log.e("SCENE", "First description ${scene.descriptions.first()}")
+            Log.e("SCENE", "First action ${scene.actions.first()}")
         }
     }
 }
@@ -91,10 +114,9 @@ fun EnqueueMessage(message: String){
         DequeueMessage()
 }
 
-fun ClearOutput(){
-    messageQueue.clear()
-    output.clear()
-    readLines.value = 0
+fun <T>EnqueueMessage(vararg messages: T){
+    for (t in messages)
+        EnqueueMessage(t.toString())
 }
 
 fun <T>ClearOutput(vararg messages: T){
@@ -111,7 +133,7 @@ fun <T>ClearOutput(vararg messages: T){
 }
 //endregion
 
-//region Action Buttons
+//region Actions
 @Composable
 fun AddButtons(){
     var actionsIncluded = 0
@@ -141,23 +163,38 @@ fun AddInitialActions(){
     if(addedInitialActions.value)
         return
     addedInitialActions.value = true
-    var inventoryAction = ActionItem( message = "Check inventory",
-        description = "It's a wonder your pockets still hold up",
-        action = { EnqueueMessage("Inventoooory")})
-    inventoryAction.action = { EnqueueMessage(inventoryAction.description) }
-
-    possibleActions.add(inventoryAction)
-    possibleActions.add(
-        ActionItem(message = "Spin around",
-            description = "You spin right round till' you're dizzy",
-            action = {EnqueueMessage("You spin right round till' you're dizzy")}))
-    possibleActions.add(
-        ActionItem(message = "Go to sleep",
-            description = "The world fades to black",
-            action = { ClearOutput("The world fades to black",
-                "You wake up in the middle of nowhere")
-            }))
+    StartScene("Welcome to Dungeon & Dampness.", 1)
 }
 
+fun ClearActions(includeInventory: Boolean = true){
+    possibleActions.clear()
+    if (includeInventory){ //TODO only include if have item
+        var inventoryAction = Action( message = "Check inventory",
+            description = "It's a wonder your pockets still hold up")
+        inventoryAction.action = {
+            scenes.get(0).PopAction()
+            scenes.get(0).AddAction(Action("Go back", "You stop looking at your stuff and get back to the task at hand.",
+                custom_action = true,
+                action = { StartScene("You stop looking at your stuff and get back to the task at hand.")}))
+            StartScene(inventoryAction.description, 0, includeInventory = false) }
+        possibleActions.add(inventoryAction)
+    }
+}
+
+//endregion
+
+//region Scenes
+fun StartScene(actionDescription: String, sceneIndex: Int, includeInventory: Boolean = true, goBack: Boolean = false){
+    if (!goBack)
+        sceneIndexStack.add(sceneIndex)
+    ClearOutput(actionDescription, scenes[sceneIndex].GetDescription(player.value))
+    ClearActions(includeInventory)
+    scenes[sceneIndex].GetActions(possibleActions, player.value)
+}
+
+fun StartScene(actionDescription: String){
+    sceneIndexStack.removeLast()
+    StartScene(actionDescription, sceneIndexStack.last(), goBack = true)
+}
 //endregion
 

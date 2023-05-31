@@ -4,7 +4,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -35,17 +40,32 @@ class SlowTextContainer(val message: String,
 
 
 @Composable
-fun SlowText(message : String, readSlowly : Boolean = true, onFinishedWriting: () -> Unit = {}) {
+fun SlowText(
+    message: String,
+    readSlowly: Boolean = true,
+    onFinishedWriting: () -> Unit = {},
+    modifier: Modifier = Modifier.padding(0.dp, 2.dp),
+    textAlign: TextAlign = TextAlign.Left,
+    fontWeight: FontWeight = FontWeight.Normal,
+    fontSize: TextUnit = 14.sp,
+    delayTime: Long = 30
+) {
     val output = remember{ mutableStateOf("")}
     var textContainer = remember { SlowTextContainer(message, output) }
 
-    Text(text = "${output.value}", modifier = Modifier.padding(0.dp, 2.dp))
+    Text(
+        text = "${output.value}",
+        modifier = modifier,
+        textAlign = textAlign,
+        fontWeight = fontWeight,
+        fontSize = fontSize,
+    )
 
     LaunchedEffect(key1 = textContainer){
         coroutineScope{
             var writingJob = launch{
                 textContainer.UpdateTextSlowly(readSlowly = readSlowly,
-                                                delayTime = 30, newLineFactor = 5)}
+                                                delayTime = delayTime, newLineFactor = 5)}
             writingJob.join()
             onFinishedWriting()
         }

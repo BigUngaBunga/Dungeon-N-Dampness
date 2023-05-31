@@ -5,7 +5,11 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import big.knaaledge.dungeon_n_dampness.components.GetActionButton
 import big.knaaledge.dungeon_n_dampness.components.SlowText
 import big.knaaledge.dungeon_n_dampness.data.Action
@@ -89,8 +93,10 @@ fun PrintOutput() {
             .padding(16.dp)
             .padding(0.dp, 0.dp, 0.dp, 200.dp)){
         items(output){message ->
-            SlowText(message = message, readSlowly = readLines.value <= output.lastIndexOf(message),
-                onFinishedWriting = {DequeueMessage(); readLines.value++ })
+            SlowText(
+                message = message, readSlowly = readLines.value <= output.lastIndexOf(message),
+                onFinishedWriting = {DequeueMessage(); readLines.value++ },
+            )
         }
     }
 }

@@ -2,10 +2,12 @@ package big.knaaledge.dungeon_n_dampness
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -15,6 +17,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import big.knaaledge.dungeon_n_dampness.JSON.JsonReader
+import big.knaaledge.dungeon_n_dampness.components.SlowText
 import big.knaaledge.dungeon_n_dampness.data.Action
 import big.knaaledge.dungeon_n_dampness.data.Scene
 import big.knaaledge.dungeon_n_dampness.ui.theme.DungeonNDampnessTheme
@@ -24,6 +27,8 @@ var messageQueue = mutableStateListOf<String>()
 var readLines = mutableStateOf(0)
 var possibleActions = mutableStateListOf<Action>()
 var sceneIndexStack = mutableStateListOf<Int>(1)
+
+var endString: String = "> Placeholder"
 
 var scenes = mutableStateListOf<Scene>()
 var player = mutableStateOf(Player())
@@ -60,15 +65,15 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Navigation(){
     val navController = rememberNavController()
-    NavHost(navController, startDestination = Screen.Main.route) {
+    NavHost(navController, startDestination = Screen.Win.route) {
         composable(route = Screen.Main.route){
             MainMenu(navController)
         }
         composable(route = Screen.Win.route){
-            WinScreen(navController)
+            WinScreen(navController, endString)
         }
         composable(route = Screen.Lose.route){
-            GameOverScreen(navController)
+            GameOverScreen(navController, endString)
         }
         composable(route = Screen.Game.route){
             GameScreen()
@@ -87,15 +92,17 @@ fun CreditScreen(navController: NavController) {
     ) {
         Credits()
         Box{
-            Button(
-                onClick = { navController.navigate("main") },
+            TextButton(
+                onClick = { navController.navigate(Screen.Main.route) },
                 modifier = Modifier
-                    .offset(120.dp, 300.dp)
-                    .size(150.dp, 50.dp),
+                    .offset(128.dp, 300.dp)
+                    .size(128.dp, 64.dp)
+                    .padding(2.dp),
+                border = BorderStroke(2.dp, Brush.radialGradient(colors = listOf(MaterialTheme.colors.primary, MaterialTheme.colors.primary)))
             ) {
                 Text(
                     "Back",
-                    color = MaterialTheme.colors.background
+                    color = MaterialTheme.colors.primary
                 )
             }
         }
@@ -113,20 +120,58 @@ fun GameScreen() {
 }
 
 @Composable
-fun GameOverScreen(navController: NavController) {
-    Button(
-        onClick = { navController.navigate(Screen.Main.route) }
+fun GameOverScreen(navController: NavController, output: String) {
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colors.background
     ) {
-        Text("Return to Main Menu")
+        SlowText(
+            message = output,
+            modifier = Modifier.padding(16.dp)
+        )
+        Box{
+            TextButton(
+                onClick = { navController.navigate(Screen.Main.route) },
+                modifier = Modifier
+                    .offset(128.dp, 600.dp)
+                    .size(128.dp, 64.dp)
+                    .padding(2.dp),
+                border = BorderStroke(2.dp, Brush.radialGradient(colors = listOf(MaterialTheme.colors.primary, MaterialTheme.colors.primary)))
+            ) {
+                Text(
+                    "Return to Main Menu",
+                    color = MaterialTheme.colors.primary
+                )
+            }
+        }
     }
 }
 
 @Composable
-fun WinScreen(navController: NavController) {
-    Button(
-        onClick = { navController.navigate(Screen.Main.route) }
+fun WinScreen(navController: NavController, output: String) {
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colors.background
     ) {
-        Text("Return to Main Menu")
+        SlowText(
+            message = output,
+            modifier = Modifier.padding(16.dp)
+        )
+        Box{
+            TextButton(
+                onClick = { navController.navigate(Screen.Main.route) },
+                modifier = Modifier
+                    .offset(128.dp, 600.dp)
+                    .size(128.dp, 64.dp)
+                    .padding(2.dp),
+                border = BorderStroke(2.dp, Brush.radialGradient(colors = listOf(MaterialTheme.colors.primary, MaterialTheme.colors.primary)))
+            ) {
+                Text(
+                    "Return to Main Menu",
+                    color = MaterialTheme.colors.primary
+                )
+            }
+        }
     }
 }
 
@@ -138,30 +183,32 @@ fun MainMenu(navController: NavController) {
     ) {
         Title()
         Box{
-            Button(
+            TextButton(
                 onClick = { navController.navigate(Screen.Game.route) },
                 modifier = Modifier
-                    .offset(120.dp, 300.dp)
-                    .size(150.dp, 50.dp),
-
+                    .offset(128.dp, 300.dp)
+                    .size(128.dp, 64.dp)
+                    .padding(2.dp),
+                    border = BorderStroke(2.dp, Brush.radialGradient(colors = listOf(MaterialTheme.colors.primary, MaterialTheme.colors.primary)))
             ){
                 Text(
                     "Start Game",
-                    color = MaterialTheme.colors.background
+                    color = MaterialTheme.colors.primary
                 )
             }
         }
         Box{
-            Button(
+            TextButton(
                 onClick = { navController.navigate(Screen.Credits.route) },
                 modifier = Modifier
-                    .offset(120.dp, 370.dp)
-                    .size(150.dp, 50.dp),
-
+                    .offset(128.dp, 370.dp)
+                    .size(128.dp, 64.dp)
+                    .padding(2.dp),
+                    border = BorderStroke(2.dp, Brush.radialGradient(colors = listOf(MaterialTheme.colors.primary, MaterialTheme.colors.primary)))
                 ){
                 Text(
                     "Credits",
-                    color = MaterialTheme.colors.background
+                    color = MaterialTheme.colors.primary
                 )
             }
         }
@@ -169,24 +216,28 @@ fun MainMenu(navController: NavController) {
 }
 @Composable
 fun Title() {
-    Text(
-        text = "Dungeons 'n' Dampness",
+    SlowText(
+        message = "> Dungeons 'n' Dampness",
+        modifier = Modifier
+            .offset(0.dp, 200.dp)
+            .padding(16.dp),
         textAlign = TextAlign.Center,
         fontWeight = FontWeight.Bold,
         fontSize = 30.sp,
-        modifier = Modifier.offset(0.dp, 200.dp)
-            .padding(16.dp),
+        delayTime = 60,
     )
 }
 
 @Composable
 fun Credits() {
-    Text(
-        text = "A game by Truls Rockström and Pär Ängquist",
+    SlowText(
+        message = "A game by Truls Rockström and Pär Ängquist",
         textAlign = TextAlign.Center,
-        fontSize = 16.sp,
-        modifier = Modifier.offset(0.dp, 200.dp)
+        fontSize = 18.sp,
+        modifier = Modifier
+            .offset(0.dp, 200.dp)
             .padding(16.dp),
+        delayTime = 60,
     )
 }
 sealed class Screen(val route: String){

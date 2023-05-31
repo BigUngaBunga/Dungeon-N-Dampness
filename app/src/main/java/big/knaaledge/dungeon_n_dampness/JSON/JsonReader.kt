@@ -1,7 +1,8 @@
-package big.knaaledge.dungeon_n_dampness.data
+package big.knaaledge.dungeon_n_dampness.JSON
 
 import android.content.Context
 import big.knaaledge.dungeon_n_dampness.R
+import big.knaaledge.dungeon_n_dampness.data.Scene
 import java.io.InputStreamReader
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken

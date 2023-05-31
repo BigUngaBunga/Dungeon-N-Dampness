@@ -3,17 +3,16 @@ package big.knaaledge.dungeon_n_dampness.data
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import big.knaaledge.dungeon_n_dampness.Player
 
-var descriptions : MutableList<String> = mutableListOf<String>()
-var actions : MutableList<Action> = mutableListOf<Action>()
+//var descriptions : List<Description> = listOf<Description>()
+//var actions : MutableList<Action> = mutableListOf<Action>()
 
-
-class Scene() {
-    fun AddDescription(description: String){
-        descriptions.add(description)
-    }
-
-    fun GetDescription() : String {
-        return descriptions.first()
+data class Scene(var descriptions : List<Description>, var actions : MutableList<Action>) {
+    fun GetDescription(player: Player) : String {
+        for (description in descriptions){
+            if (player.AllFlagsSet(description.required_flags))
+                return description.text
+        }
+        return descriptions.last().text
     }
 
     fun AddAction(action: Action){

@@ -1,9 +1,7 @@
 package big.knaaledge.dungeon_n_dampness
 
-import androidx.compose.runtime.mutableStateListOf
+import android.util.Log
 import androidx.compose.runtime.mutableStateMapOf
-import big.knaaledge.dungeon_n_dampness.InventoryItem
-import big.knaaledge.dungeon_n_dampness.data.Action
 
 class Player {
     var flags = mutableStateMapOf<String, Boolean>()
@@ -12,6 +10,7 @@ class Player {
     }
 
     private fun AddFlags(){
+        flags["ouch"] = false
         flags.set("ouch", false)
         flags.set("box_moved", false)
         flags.set("slab_lifted", false)
@@ -28,12 +27,25 @@ class Player {
         flags.set("has_arm", false)
         flags.set("has_boomerang", false)
         flags.set("has_bucket", false)
+        Log.e("Debug", "${flags.keys}")
     }
 
     fun IsFlagSet(flag : String) : Boolean? {
-        if (!flag.isNullOrEmpty() && flag.first() == '!')
+        if (flag == "")
+            return true
+        else if (flag != null && flag.first() == '!') {
             return !flags[flag.substringAfter('!')]!!
-        else
-            return flags[flag]
+        }
+        return flags[flag]
+    }
+
+    fun AllFlagsSet(flags: String): Boolean{
+        val parsedFlags = flags.split(", ")
+
+        for (flag in parsedFlags){
+            if (!IsFlagSet(flag)!!)
+                return false
+        }
+        return true
     }
 }

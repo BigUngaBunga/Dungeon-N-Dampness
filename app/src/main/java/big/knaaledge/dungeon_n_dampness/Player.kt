@@ -2,15 +2,18 @@ package big.knaaledge.dungeon_n_dampness
 
 import android.util.Log
 import androidx.compose.runtime.mutableStateMapOf
+import androidx.compose.runtime.mutableStateOf
+import kotlin.random.Random
 
 class Player {
     var flags = mutableStateMapOf<String, Boolean>()
+    var itemFlags = mutableStateOf("")
     init {
         AddFlags()
+        AddItemFlags()
     }
 
     private fun AddFlags(){
-        flags["ouch"] = false
         flags.set("ouch", false)
         flags.set("box_moved", false)
         flags.set("slab_lifted", false)
@@ -18,16 +21,23 @@ class Player {
         flags.set("flow_increased", false)
         flags.set("gator_got_gotten", false)
         flags.set("door_unlocked", false)
+        flags.set("in_first_cell", true)
+        flags.set("cat_be_ded", Random.nextInt(0, 2) == 0)
+    }
 
-        flags.set("has_key", false)
-        flags.set("has_file", false)
-        flags.set("has_book", false)
-        flags.set("has_herb", false)
-        flags.set("has_leg", false)
-        flags.set("has_arm", false)
-        flags.set("has_boomerang", false)
-        flags.set("has_bucket", false)
-        Log.e("Debug", "${flags.keys}")
+    private fun AddItemFlags(){
+        var items = listOf("has_key", "has_file", "has_book", "has_herb","has_leg","has_arm",
+            "has_boomerang", "has_bucket")
+
+        var stringBuilder = java.lang.StringBuilder()
+
+        for (item in items){
+            flags.set(item, false)
+            stringBuilder.append(item)
+            stringBuilder.append(", ")
+        }
+        stringBuilder.setLength(stringBuilder.length -2)
+        itemFlags.value = stringBuilder.toString()
     }
 
     fun IsFlagSet(flag : String) : Boolean? {
@@ -47,5 +57,22 @@ class Player {
                 return false
         }
         return true
+    }
+
+    fun AnyFlagSet(flags: String): Boolean{
+        val parsedFlags = flags.split(", ")
+
+        for (flag in parsedFlags){
+            if(IsFlagSet(flag)!!)
+                return true
+        }
+        return false
+    }
+
+    fun SetFlags(flagString: String){
+        val parsedFlags = flagString.split(", ")
+        for (flag in parsedFlags){
+            flags[flag.substringAfter('!')] = flag.first() == '!'
+        }
     }
 }

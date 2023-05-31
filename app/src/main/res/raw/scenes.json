@@ -11,67 +11,47 @@
             {
                 "message": "Key ring",
                 "description": "A whole bunch of keys, maybe one of them leads to freedom!",
-                "required_flags": "has_key",
-                "perform_once": "false",
-                "go_to_scene": ""
-
+                "required_flags": "has_key"
             },
             {
-
                 "message": "File",
                 "description": "A rusty file. It would make quick work of a certain few metal bars.",
-                "required_flags": "has_file",
-                "perform_once": "false",
-                "go_to_scene": ""
+                "required_flags": "has_file"
             },
             {
-
                 "message": "Large book",
                 "description": "A large musty tome containing information on herbalism.",
-                "required_flags": "has_book",
-                "perform_once": "false",
-                "go_to_scene": ""
+                "required_flags": "has_book"
             },
             {
                 "message": "Herb",
                 "description": "The herbology book suggests these if you’re suffering from insomnia.",
-                "required_flags": "has_herb",
-                "perform_once": "false",
-                "go_to_scene": ""
+                "required_flags": "has_herb"
             },
             {
                 "message": "A leg",
                 "description": "It’s something to stand on.",
-                "required_flags": "has_leg",
-                "perform_once": "false",
-                "go_to_scene": ""
+                "required_flags": "has_leg"
             },
             {
                 "message": "Arm",
                 "description": "It’s a constitutional right to bear one.",
-                "required_flags": "has_arm",
-                "perform_once": "false",
-                "go_to_scene": ""
+                "required_flags": "has_arm"
             },
             {
                 "message": "Boomerang",
                 "description": "It doesn’t make a boom. That’s a real bummer.",
-                "required_flags": "has_boomerang",
-                "perform_once": "false",
-                "go_to_scene": ""
+                "required_flags": "has_boomerang"
             },
             {
                 "message": "Bucket",
                 "description": "It’s a sturdy old water bucket. It's so large your head could comfortably fit in it.",
-                "required_flags": "has_bucket",
-                "perform_once": "false",
-                "go_to_scene": ""
+                "required_flags": "has_bucket"
             },
             {
                 "message": "Go back",
                 "description": "You get back to the matter at hand.",
                 "required_flags": "",
-                "perform_once": "false",
                 "go_to_scene": "1"
             }
         ]
@@ -88,15 +68,11 @@
             {
                 "message": "Explore the room",
                 "description": "You stand up and take a look around.",
-                "required_flags": "",
-                "perform_once": "false",
                 "go_to_scene": "2"
             },
             {
                 "message": "Go to sleep",
                 "description": "You go back to sleep.",
-                "required_flags": "",
-                "perform_once": "false",
                 "go_to_scene": "1"
             }
         ]
@@ -126,30 +102,204 @@
                 "message": "Approach the door",
                 "description": "You step towards the only apparent exit.",
                 "required_flags": "!door_unlocked",
-                "perform_once": "false",
                 "go_to_scene": "3"
             },
             {
                 "message": "Go through the door",
                 "description": "You walk past the open metal door.",
                 "required_flags": "door_unlocked",
-                "perform_once": "false",
                 "go_to_scene": "6"
             },
             {
                 "message": "Examine the floor",
-                "description": "Perhaps there is something useful here?",
-                "required_flags": "",
-                "perform_once": "false",
+                "description": "You examine the floor, perhaps there is something useful there?",
                 "go_to_scene": "4"
             },
             {
                 "message": "Check the ceiling grate",
                 "description": "It’s the only source of light in here.",
-                "required_flags": "",
-                "perform_once": "false",
                 "go_to_scene": "5"
             }
         ]
+    },
+    {
+        "scene_index": "3",
+        "descriptions": [
+            {
+                "required_flags": "",
+                "text": "A closed metal door stands before you. It seems old and rusted, though it’s far too sturdy to break through."
+            }
+        ],
+        "actions": [
+            {
+                "message": "Unlock the door",
+                "description": "The key turns slowly but steadily and the old lock gives a loud click.",
+                "required_flags": "has_key",
+                "go_to_scene": "6"
+            },
+            {
+                "message": "Knock",
+                "description": "No one answers",
+                "perform_once": true
+            },
+            {
+                "message": "Open",
+                "description": "It won’t budge",
+                "perform_once": true
+            },
+            {
+                "message": "Go back",
+                "description": "You turn away from the door.",
+                "go_to_scene": "2"
+            }
+        ]
+    },
+    {
+        "scene_index": "4",
+        "descriptions": [
+            {
+                "required_flags": "box_moved",
+                "text": "The uneven stone floor is cold, hard and dirty. In one corner lies a pile of straw as a sad mockery of a bed"
+            },
+            {
+                "required_flags": "",
+                "text": "The uneven stone floor is cold, hard and dirty. In one corner lies a pile of straw as a sad mockery of a bed and in another stands a wooden box."
+            }
+        ],
+        "actions": [
+            {
+                "message": "Inspect the box",
+                "description": "The wooden box catches your eye.",
+                "required_flags": "!box_moved",
+                "go_to_scene": "7"
+            },
+            {
+                "message": "Sit on bed",
+                "description": "It’s just as uncomfortable as when you woke up",
+                "perform_once": true
+            },
+            {
+                "message": "Go back",
+                "description": "You rise from the floor",
+                "go_to_scene": "2"
+            }
+        ]
+    },
+    {
+        "scene_index": "5",
+        "descriptions": [
+            {
+                "required_flags": "moved_box",
+                "text": "A small grate sits in the ceiling letting through the candle light and snores from the room above. You could probably squeeze through if you could get rid of the bars. The wooden box stands right beneath it."
+            },
+            {
+                "required_flags": "",
+                "text": "A small grate sits in the ceiling letting through the candle light and snores from the room above. You could probably squeeze through if you could get rid of the bars."
+            }
+        ],
+        "actions": [
+            {
+                "message": "Try to reach",
+                "description": "You try to reach the metal bars but it’s too high up.",
+                "perform_once": true
+            },
+            {
+                "message": "Climb the box",
+                "description": "Now you’re thinking outside it!",
+                "required_flags": "moved_box",
+                "go_to_scene": "8"
+            },
+            {
+                "message": "Go back",
+                "description": "You turn back to the rest of the cell.",
+                "go_to_scene": "2"
+            }
+        ]
+    },
+    {
+        "scene_index": "6",
+        "descriptions": [
+            {
+                "required_flags": "in_first_cell",
+                "text": "The door is ajar. Before you lies another prison cell, this one even more run down."
+            },
+            {
+                "required_flags": "!in_first_cell",
+                "text": "The door is ajar. Before you lies your original cell. It’s a bit nicer."
+            }
+        ],
+        "actions": [
+            {
+                "message": "Go into the other cel",
+                "description": "You step through the doorway.",
+                "set_flags": "!in_first_cell",
+                "go_to_scene": "9"
+            },
+            {
+                "message": "Go back to your cell",
+                "description": "You turn back to the rest of the cell.\n",
+                "set_flags": "in_first_cell",
+                "go_to_scene": "2"
+            }
+        ]
+    },
+    {
+        "scene_index": "7",
+        "descriptions": [
+            {
+                "required_flags": "",
+                "text": "A wooden box stands alone in a corner. It seems to be much newer than most things in the room. A note says “Don’t mess with the superposition”"
+            }
+        ],
+        "actions": [
+            {
+                "message": "Push it real good",
+                "description": "You push it under the grate.",
+                "set_flags": "moved_box"
+            },
+            {
+                "message": "Check inside",
+                "description": "You find a dead cat.",
+                "required_flags": "cat_be_ded",
+                "perform_once": true
+            },
+            {
+                "message": "Check inside",
+                "description": " A confused cat stares back at you.",
+                "required_flags": "!cat_be_ded",
+                "perform_once": true
+            },
+            {
+                "message": "Go back",
+                "description": "You step away from the corner.",
+                "required_flags": "!cat_be_ded",
+                "go_to_scene": "2"
+            }
+        ]
+    },
+    {
+        "scene_index": "8",
+        "descriptions": [
+            {
+                "required_flags": "",
+                "text": "As you peek through the grate you see a long corridor. A guard lays sleeping on a nearby bench. On the floor stands a mug filled with something."
+            }
+        ],
+        "actions": [
+            {
+                "message": "Explore the room",
+                "description": "You stand up and take a look around.",
+                "required_flags": "",
+                "go_to_scene": "1"
+            },
+            {
+                "message": "Spin around",
+                "description": "You start to get nauseaus.",
+                "required_flags": "",
+                "perform_once": true,
+                "set_flags": ""
+            }
+        ]
     }
+
 ]

@@ -230,7 +230,7 @@
         ],
         "actions": [
             {
-                "message": "Go into the other cel",
+                "message": "Go into the other cell",
                 "description": "You step through the doorway.",
                 "set_flags": "!in_first_cell",
                 "go_to_scene": "9"

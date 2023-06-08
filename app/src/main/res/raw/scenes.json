@@ -520,5 +520,265 @@
                 "go_to_scene": "9"
             }
         ]
+    },
+    {
+        "scene_index": "15",
+        "descriptions": [
+            {
+                "required_flags": "",
+                "text": "A large hole exists where the floor has collapsed into the darkness below. Foul air rises from it and meets your nose."
+            }
+        ],
+        "actions": [
+            {
+                "message": "Climb down",
+                "description": "You descend carefully, finding crevices for your fingers and toes that slowly lead you downwards.",
+                "go_to_scene": "16"
+            },
+            {
+                "message": "Jump down",
+                "description": "You descend carelessly. Jumping is so much faster!",
+                "set_flags": "ouch",
+                "go_to_scene": "16"
+            },
+            {
+                "message": "Back away",
+                "description": "You decide that the dark and foul smelling hole can wait.",
+                "go_to_scene": "9"
+            }
+        ]
+    },
+    {
+        "scene_index": "16",
+        "descriptions": [
+            {
+                "required_flags": "flow_increased, ouch",
+                "text": "You find yourself knee deep in the sludge of an old sewer. The dark tunnel extends both in front of and behind you. You hurt your leg pretty badly when you jumped, so you're probably not climbing back up"
+            },
+            {
+                "required_flags": "flow_increased",
+                "text": "You find yourself knee deep in the sludge of an old sewer. The dark tunnel extends both in front of and behind you."
+            },
+            {
+                "required_flags": "ouch",
+                "text": "You find yourself ankles deep in the sludge of an old sewer. The dark tunnel extends both in front of and behind you. You hurt your leg pretty badly when you jumped, so you're probably not climbing back up"
+            },
+            {
+                "required_flags": "",
+                "text": "You find yourself ankles deep in the sludge of an old sewer. The dark tunnel extends both in front of and behind you."
+            }
+        ],
+        "actions": [
+            {
+                "message": "Climb back up",
+                "description": "You climb your way back up the slippery wall.",
+                "required_flags": "!ouch",
+                "go_to_scene": "16"
+            },
+            {
+                "message": "Climb back up",
+                "description": "You attempt to climb back up but the pain in your leg becomes to much and you slip. I did warn you.",
+                "required_flags": "ouch",
+                "perform_once": true
+            },
+            {
+                "message": "Go forwards",
+                "description": "You head into the dark tunnel leading forwards.",
+                "go_to_scene": "17"
+            },
+            {
+                "message": "Go backwards",
+                "description": "You should still look where you’re going.",
+                "go_to_scene": "19"
+            }
+        ]
+    },
+    {
+        "scene_index": "17",
+        "descriptions": [
+            {
+                "required_flags": "",
+                "text": "You’re walking through a long tunnel, it’s as damp and foul smelling as ever"
+            }
+        ],
+        "actions": [
+            {
+                "message": "Go forward",
+                "description": "The tunnel keeps going",
+                "required_flags": "tunnel_start",
+                "set_flags": "!tunnel_start, tunnel_at_skeleton"
+            },
+            {
+                "message": "Go forward",
+                "description": "You see a skeleton laying in the water",
+                "required_flags": "tunnel_at_skeleton",
+                "set_flags": "!tunnel_at_skeleton, tunnel_middle"
+            },
+            {
+                "message": "Go forward",
+                "description": "It just keeps on going",
+                "required_flags": "tunnel_middle",
+                "set_flags": "!tunnel_middle, tunnel_end"
+            },
+            {
+                "message": "Go forward",
+                "description": "You see some light at the end of the tunnel!",
+                "required_flags": "tunnel_end",
+                "go_to_scene": "21"
+            },
+            {
+                "message": "Look at the skeleton",
+                "description": "You stop and take a look at the bones.",
+                "required_flags": "tunnel_at_skeleton",
+                "go_to_scene": "20"
+            },
+            {
+                "message": "Go back",
+                "description": "You get back to where you came down.",
+                "required_flags": "tunnel_start",
+                "go_to_scene": "16"
+            },
+            {
+                "message": "Go back",
+                "description": "Surprisingly it's just as long the other way round",
+                "required_flags": "tunnel_at_skeleton",
+                "set_flags": "!tunnel_at_skeleton, tunnel_start"
+            },
+            {
+                "message": "Go back",
+                "description": "You come back to the skeleton",
+                "required_flags": "tunnel_middle",
+                "set_flags": "!tunnel_middle, tunnel_at_skeleton"
+            },
+            {
+                "message": "Go back",
+                "description": "The tunnel keeps going",
+                "required_flags": "tunnel_end",
+                "set_flags": "tunnel_middle, !tunnel_end"
+            }
+        ]
+    },
+    {
+        "scene_index": "18",
+        "descriptions": [
+            {
+                "required_flags": "has_herb",
+                "text": "You reach a dead end. Water is trickling through a pile of rocks."
+            },
+            {
+                "required_flags": "",
+                "text": "You reach a dead end. Water is trickling through a pile of rocks, with a lonely plant growing through the gaps in the stone."
+            }
+        ],
+        "actions": [
+            {
+                "message": "Pick sleeping herbs",
+                "description": "You’d make a fine gardener.",
+                "required_flags": "has_book",
+                "perform_once": true,
+                "set_flags": "has_herb"
+            },
+            {
+                "message": "Clear away the rocks",
+                "description": "Digging through the pile takes some time.",
+                "perform_once": true,
+                "set_flags": "rocks_cleared",
+                "go_to_scene": "19"
+            },
+            {
+                "message": "Head back",
+                "description": "You walk away from the mound of rocks",
+                "go_to_scene": "16"
+            }
+        ]
+    },
+    {
+        "scene_index": "19",
+        "descriptions": [
+            {
+                "required_flags": "flow_increased",
+                "text": "With the rocks gone and the hole enlarged you can see the inlet clearly. It’s an opening in the stone wall, big enough to fit through. Water is gushing readily through it."
+            },
+            {
+                "required_flags": "",
+                "text": "With the rocks gone you can see the inlet clearly. It’s an opening in the stone wall, too small to fit through. Water is pouring more readily through it, and the stone lining the opening seems loose."
+            }
+        ],
+        "actions": [
+            {
+                "message": "Widen the gap",
+                "description": "Water gushes forth as you remove enough of the loose wall to fit through.",
+                "set_flags": "flow_increased",
+                "perform_once": true
+            },
+            {
+                "message": "Put the bucket on your head",
+                "description": "Watertight idea! Right?",
+                "required_flags": "has_bucket, !bucket_on_head",
+                "set_flags": "bucket_on_head"
+            },
+            {
+                "message": "Try to swim out ",
+                "description": "You take a deep breath and squeeze through the hole. The water is freezing cold and you feel like your going to drown",
+                "required_flags": "flow_increased, !is_swimming, !bucket_on_head",
+                "perform_once": true,
+                "set_flags": "is_swimming"
+            },
+            {
+                "message": "Keep swimming",
+                "description": "Your lungs ache as you keep going. You don't know how much further you can go",
+                "required_flags": "is_swimming, !swam_more, !bucket_on_head",
+                "set_flags": "swam_more"
+            },
+            {
+                "message": "Try to swim out ",
+                "description": "You start panicking as you come to the realization that you are drowning.",
+                "required_flags": "swam_more, !swimming_2, !bucket_on_head",
+                "set_flags": "swimming_2"
+            },
+            {
+                "message": "Try to swim out ",
+                "description": "You take a deep breath and squeeze through the hole. The water is freezing cold and the bucket makes it hard to see where you're going.",
+                "required_flags": "flow_increased, !is_swimming, bucket_on_head",
+                "set_flags": "is_swimming"
+            },
+            {
+                "message": "Keep swimming",
+                "description": "You start getting short of breath, but you also feel the water pressure dropping",
+                "required_flags": "is_swimming, !swam_more, bucket_on_head",
+                "set_flags": "swam_more"
+            },
+            {
+                "message": "Keep swimming",
+                "description": "Determined to get out you push until you break through to the surface. It's cold, you're tired and you look like an idiot, but you finally made it out.",
+                "required_flags": "swam_more, !swimming_2, bucket_on_head",
+                "set_flags": "swimming_2"
+            },
+            {
+                "message": "Swim back",
+                "description": "You get back in the nick of time. Coughing up water as you pull yourself through the hole you think \"that was close\"",
+                "required_flags": "is_swimming, !bucket_on_head",
+                "set_flags": "!is_swimming, !swam_more, !swimming_2"
+            },
+            {
+                "message": "Swim back",
+                "description": "You turn back, finding the hole again with a bucket on your head is hard, but you manage to squeeze through",
+                "required_flags": "is_swimming, bucket_on_head",
+                "set_flags": "!is_swimming, !swam_more, !swimming_2"
+            },
+            {
+                "message": "Head back",
+                "description": "Speaking of heads, you take the bucket of as you walk away",
+                "required_flags": "!is_swimming, bucket_on_head",
+                "set_flags": "!bucket_on_head",
+                "go_to_scene": "16"
+            },
+            {
+                "message": "Head back",
+                "description": "You wade away in the water",
+                "required_flags": "!is_swimming, !bucket_on_head",
+                "go_to_scene": "16"
+            }
+        ]
     }
 ]

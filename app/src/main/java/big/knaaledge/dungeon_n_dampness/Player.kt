@@ -16,20 +16,32 @@ class Player {
     }
 
     private fun AddFlags(){
-        flags.set("ouch", false)
-        flags.set("box_moved", false)
-        flags.set("slab_lifted", false)
-        flags.set("rocks_cleared", false)
-        flags.set("flow_increased", false)
-        flags.set("gator_got_gotten", false)
-        flags.set("door_unlocked", false)
         flags.set("in_first_cell", true)
+        flags.set("slab_lifted", false)
+        flags.set("door_unlocked", false)
+        flags.set("box_moved", false)
         flags.set("cat_be_ded", Random.nextInt(0, 2) == 0)
+
         flags.set("file_bars_1", false)
         flags.set("file_bars_2", false)
         flags.set("file_bars_3", false)
         flags.set("sleepy_guard", false)
         flags.set("herb_mah_drink", false)
+
+        flags.set("ouch", false)
+        flags.set("tunnel_start", true)
+        flags.set("tunnel_at_skeleton", false)
+        flags.set("tunnel_middle", false)
+        flags.set("tunnel_end", false)
+
+        flags.set("rocks_cleared", false)
+        flags.set("flow_increased", false)
+        flags.set("is_swimming", false)
+        flags.set("bucket_on_head", false)
+        flags.set("swam_more", false)
+        flags.set("swimming_2", false)
+
+        flags.set("gator_got_gotten", false)
     }
 
     private fun AddItemFlags(){

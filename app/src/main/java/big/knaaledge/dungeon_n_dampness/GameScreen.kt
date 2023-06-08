@@ -86,13 +86,37 @@ fun ClearActions(){
 fun EvaluateWinLoss(navController: NavController){
     if(player.value.AllFlagsSet("file_bars_3")){
         if(player.value.AllFlagsSet("sleepy_guard")){
-            endString = ""
-            navController.navigate(Screen.Win.route)
+            endState = "YOU ESCAPED"
+            endString = "> The last of the bars fall to the floor of the cell with a clank. The guard is still snoring comfortably. You squeeze through the hole and sneak away through the corridor..."
+            navController.navigate(Screen.End.route)
         }
         else{
-            endString = "> Just as you're about to finish with the bars you're caught red-handed. The guard loudly raises the alarm. Looks like your execution has been moved up on the schedule..."
-            navController.navigate(Screen.Lose.route)
+            endState = "GAME OVER"
+            endString = "> Just as you're about to finish with the bars you're caught red-handed. The guard loudly raises the alarm. Looks like your execution has been expedited..."
+            navController.navigate(Screen.End.route)
         }
+    }
+    else if(player.value.AllFlagsSet("swimming_2")){
+        if(player.value.AllFlagsSet("bucket_on_head")){
+            endState = "YOU ESCAPED"
+            endString = "> You can't have expected this to really work right? Yet somehow it does. The bucket keeps the water from filling your lungs and despite not seeing where you're heading, you eventually breach the surface. You remove the bucket and find yourself in a lake outside the city."
+            navController.navigate(Screen.End.route)
+        }
+        else{
+            endState = "YOU DROWNED"
+            endString = "> You were desperate and out of options, but you should have known swimming head first into running water wouldn't end well. The last bit of air leaves your lungs and you lose consciousness."
+            navController.navigate(Screen.End.route)
+        }
+    }
+    else if(player.value.AllFlagsSet("gator_gotem")){
+        endState = "YOU WERE EATEN"
+        endString = "> The maw is indeed large enough to swallow you whole. Your attempt at escape ended as snack for a hungry alligator."
+        navController.navigate(Screen.End.route)
+    }
+    else if(player.value.AllFlagsSet("climbed_out")){
+        endState = "YOU ESCAPED"
+        endString = "> Your muscles strain as you climb up the rope. You emerge through the well into a busy marketplace. You and your sewage-drenched clothes catch some side eye, but you quickly disappear in the crowd."
+        navController.navigate(Screen.End.route)
     }
 }
 //endregion

@@ -29,6 +29,7 @@ var possibleActions = mutableStateListOf<Action>()
 var sceneIndexStack = mutableStateListOf<Int>(1)
 
 var endString: String = "> Placeholder"
+var endState: String = "Win/Lose"
 
 var scenes = mutableStateListOf<Scene>()
 var player = mutableStateOf(Player())
@@ -65,15 +66,12 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Navigation(){
     val navController = rememberNavController()
-    NavHost(navController, startDestination = Screen.Lose.route) {
+    NavHost(navController, startDestination = Screen.Main.route) {
         composable(route = Screen.Main.route){
             MainMenu(navController)
         }
-        composable(route = Screen.Win.route){
-            WinScreen(navController, endString)
-        }
-        composable(route = Screen.Lose.route){
-            GameOverScreen(navController, endString)
+        composable(route = Screen.End.route){
+            EndScreen(navController, endState, endString)
         }
         composable(route = Screen.Game.route){
             GameScreen(navController)
@@ -120,55 +118,17 @@ fun GameScreen(navController: NavController) {
 }
 
 @Composable
-fun GameOverScreen(navController: NavController, output: String) {
+fun EndScreen(navController: NavController, state: String, description: String) {
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colors.background
     ) {
         SlowText(
-            message = output,
+            message = description,
             modifier = Modifier.padding(16.dp)
         )
         SlowText(
-            message = "GAME OVER",
-            modifier = Modifier
-                .offset(0.dp, 300.dp)
-                .padding(16.dp),
-            textAlign = TextAlign.Center,
-            fontWeight = FontWeight.Bold,
-            fontSize = 30.sp,
-            delayTime = 60,
-        )
-        Box{
-            TextButton(
-                onClick = { navController.navigate(Screen.Main.route) },
-                modifier = Modifier
-                    .offset(128.dp, 600.dp)
-                    .size(128.dp, 64.dp)
-                    .padding(2.dp),
-                border = BorderStroke(2.dp, Brush.radialGradient(colors = listOf(MaterialTheme.colors.primary, MaterialTheme.colors.primary)))
-            ) {
-                Text(
-                    "Return to Main Menu",
-                    color = MaterialTheme.colors.primary
-                )
-            }
-        }
-    }
-}
-
-@Composable
-fun WinScreen(navController: NavController, output: String) {
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colors.background
-    ) {
-        SlowText(
-            message = output,
-            modifier = Modifier.padding(16.dp)
-        )
-        SlowText(
-            message = "YOU WIN!",
+            message = state,
             modifier = Modifier
                 .offset(0.dp, 300.dp)
                 .padding(16.dp),
@@ -262,8 +222,7 @@ fun Credits() {
 }
 sealed class Screen(val route: String){
     object Main: Screen("main")
-    object Win: Screen("win")
-    object Lose: Screen("lose")
+    object End: Screen("end")
     object Game: Screen("game")
     object Credits: Screen("credits")
 }

@@ -21,9 +21,9 @@ class Action(val message: String = "",
 
     fun OnFirstRun(player: Player){
         if (!custom_action){
-            var sceneAction = {StartScene(description, go_to_scene.toInt())}
+            var sceneAction = {StartScene(message, description, go_to_scene.toInt())}
             if (go_to_scene.isEmpty() || go_to_scene == "")
-                sceneAction = {EnqueueMessage(description); UpdateActions() }
+                sceneAction = { EnqueueMessage("> $message"); EnqueueMessage(description); UpdateActions() }
             action = { wasPerformed = true; SetFlagAction(player); sceneAction() }
         }
         HasBeenInitialised = true

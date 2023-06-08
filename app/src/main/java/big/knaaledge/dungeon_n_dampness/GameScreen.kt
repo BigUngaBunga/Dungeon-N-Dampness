@@ -63,7 +63,7 @@ fun UpdateActions(){
 
 fun ClearActions(){
     possibleActions.clear()
-    if (player.value.AnyFlagSet(player.value.itemFlags.value)){ //TODO only include if have item
+    if (sceneIndexStack.last() != 0 && player.value.AnyFlagSet(player.value.itemFlags.value)){
         var inventoryAction = Action( message = "Check inventory",
             description = "It's a wonder your pockets still hold up")
         inventoryAction.action = {
@@ -71,9 +71,9 @@ fun ClearActions(){
             scenes.get(0).AddAction(
                 Action("Go back", "You stop looking at your stuff and get back to the task at hand.",
                     custom_action = true,
-                    action = { StartScene("You stop looking at your stuff and get back to the task at hand.")})
+                    action = { StartScene("Go back", "You stop looking at your stuff and get back to the task at hand.")})
             )
-            StartScene(inventoryAction.description, 0, includeInventory = false) }
+            StartScene(inventoryAction.message, inventoryAction.description, 0, includeInventory = false) }
         possibleActions.add(inventoryAction)
     }
 }
@@ -124,15 +124,15 @@ fun <T>ClearOutput(vararg messages: T){
 //endregion
 
 //region Scenes
-fun StartScene(actionDescription: String, sceneIndex: Int, includeInventory: Boolean = true, goBack: Boolean = false){
+fun StartScene(actionMessage : String, actionDescription: String, sceneIndex: Int, includeInventory: Boolean = true, goBack: Boolean = false){
     if (!goBack)
         sceneIndexStack.add(sceneIndex)
-    ClearOutput(actionDescription, scenes[sceneIndex].GetDescription(player.value))
+    ClearOutput("> $actionMessage", actionDescription, scenes[sceneIndex].GetDescription(player.value))
     UpdateActions()
 }
 
-fun StartScene(actionDescription: String){
+fun StartScene(actionMessage : String, actionDescription: String){
     sceneIndexStack.removeLast()
-    StartScene(actionDescription, sceneIndexStack.last(), goBack = true)
+    StartScene(actionMessage, actionDescription, sceneIndexStack.last(), goBack = true)
 }
 //endregion

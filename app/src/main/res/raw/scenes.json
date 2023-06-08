@@ -4,7 +4,7 @@
         "descriptions": [
             {
                 "required_flags": "",
-                "text": "You rummage around in your pockets"
+                "text": "You rummage around in your pockets."
             }
         ],
         "actions": [
@@ -140,12 +140,12 @@
             },
             {
                 "message": "Knock",
-                "description": "No one answers",
+                "description": "No one answers.",
                 "perform_once": true
             },
             {
                 "message": "Open",
-                "description": "It won’t budge",
+                "description": "It won’t budge.",
                 "perform_once": true
             },
             {
@@ -160,7 +160,7 @@
         "descriptions": [
             {
                 "required_flags": "box_moved",
-                "text": "The uneven stone floor is cold, hard and dirty. In one corner lies a pile of straw as a sad mockery of a bed"
+                "text": "The uneven stone floor is cold, hard and dirty. In one corner lies a pile of straw as a sad mockery of a bed."
             },
             {
                 "required_flags": "",
@@ -176,12 +176,12 @@
             },
             {
                 "message": "Sit on bed",
-                "description": "It’s just as uncomfortable as when you woke up",
+                "description": "It’s just as uncomfortable as when you woke up.",
                 "perform_once": true
             },
             {
                 "message": "Go back",
-                "description": "You rise from the floor",
+                "description": "You rise from the floor.",
                 "go_to_scene": "2"
             }
         ]
@@ -231,14 +231,14 @@
         ],
         "actions": [
             {
-                "message": "Go into the other cel",
+                "message": "Go into the other cell",
                 "description": "You step through the doorway.",
                 "set_flags": "!in_first_cell",
                 "go_to_scene": "9"
             },
             {
                 "message": "Go back to your cell",
-                "description": "You turn back to the rest of the cell.\n",
+                "description": "You turn back to the rest of the cell.",
                 "set_flags": "in_first_cell",
                 "go_to_scene": "2"
             }
@@ -249,7 +249,7 @@
         "descriptions": [
             {
                 "required_flags": "",
-                "text": "A wooden box stands alone in a corner. It seems to be much newer than most things in the room. A note says “Don’t mess with the superposition”"
+                "text": "A wooden box stands alone in a corner. It seems to be much newer than most things in the room. A note says “Don’t mess with the superposition”."
             }
         ],
         "actions": [
@@ -301,13 +301,13 @@
             },
             {
                 "message": "File the bars",
-                "description": "The guard snores loudly as you file",
+                "description": "The guard snores loudly as you file.",
                 "required_flags": "has_file, sleepy_guard, !file_bars_1",
                 "set_flags": "file_bars_1"
             },
             {
                 "message": "Continue filing the bars",
-                "description": "The amount of noise makes you feel thankful for the herbs",
+                "description": "The amount of noise makes you feel thankful for the herbs.",
                 "required_flags": "has_file, sleepy_guard, file_bars_1, !file_bars_2",
                 "set_flags": "file_bars_2"
             },
@@ -319,13 +319,13 @@
             },
             {
                 "message": "File the bars",
-                "description": "The guard stirs at the screeching sound",
+                "description": "The guard stirs at the screeching sound.",
                 "required_flags": "has_file, !sleepy_guard, !file_bars_1",
                 "set_flags": "file_bars_1"
             },
             {
                 "message": "Continue filing the bars",
-                "description": "The guard wakes",
+                "description": "The guard wakes.",
                 "required_flags": "has_file, file_bars_1, !sleepy_guard, !file_bars_2",
                 "set_flags": "file_bars_2"
             },
@@ -352,7 +352,7 @@
             },
             {
                 "required_flags": "!slab_lifted",
-                "text": "This cell hasn't had a living occupant in some time, made obvious by the corpse slumped in a corner. Against the opposite wall of the door stands a rickety table. The center of the floor is covered by a large slab of wood"
+                "text": "This cell hasn't had a living occupant in some time, made obvious by the corpse slumped in a corner. Against the opposite wall of the door stands a rickety table. The center of the floor is covered by a large slab of wood."
             }
         ],
         "actions": [
@@ -385,7 +385,7 @@
         "descriptions": [
             {
                 "required_flags": "has_key",
-                "text": "The unkempt guard is snoring loudly. His belt locks lonely without the keyring."
+                "text": "The unkempt guard is snoring loudly. His belt looks lonely without the keyring."
             },
             {
                 "required_flags": "!has_key",
@@ -401,19 +401,19 @@
             },
             {
                 "message": "Wake the guard",
-                "description": "He scowls at you, takes a swig from the mug and then promptly goes back to sleep",
+                "description": "He scowls at you, takes a swig from the mug and then promptly goes back to sleep.",
                 "required_flags": "!herb_mah_drink"
             },
             {
                 "message": "Wake the guard",
-                "description": "He scowls at you, downs the rest of the mug and then promptly goes back to sleep. If the herbology book was right it ought to be a deep sleep",
+                "description": "He scowls at you, downs the rest of the mug and then promptly goes back to sleep. If the herbology book was right it ought to be a deep sleep.",
                 "required_flags": "herb_mah_drink",
                 "perform_once": true,
                 "set_flags": "sleepy_guard"
             },
             {
                 "message": "Reach for something else",
-                "description": "Better not risk it",
+                "description": "Better not risk it.",
                 "go_to_scene": "8"
             }
         ]
@@ -460,13 +460,13 @@
             },
             {
                 "required_flags": "has_book",
-                "text": "The table wobbles as you step closer to it. There's nothing but dust and cloth scraps on it"
+                "text": "The table wobbles as you step closer to it. There's nothing but dust and cloth scraps on it."
             }
         ],
         "actions": [
             {
                 "message": "Pick up the herbology book.",
-                "description": "Now you know a lot more about plants!\n",
+                "description": "Now you know a lot more about plants!",
                 "required_flags": "!has_book",
                 "set_flags": "has_book"
             },
@@ -554,7 +554,7 @@
         "descriptions": [
             {
                 "required_flags": "flow_increased, ouch",
-                "text": "You find yourself knee deep in the sludge of an old sewer. The dark tunnel extends both in front of and behind you. You hurt your leg pretty badly when you jumped, so you're probably not climbing back up"
+                "text": "You find yourself knee deep in the sludge of an old sewer. The dark tunnel extends both in front of and behind you. You hurt your leg pretty badly when you jumped, so you're probably not climbing back up."
             },
             {
                 "required_flags": "flow_increased",
@@ -562,7 +562,7 @@
             },
             {
                 "required_flags": "ouch",
-                "text": "You find yourself ankles deep in the sludge of an old sewer. The dark tunnel extends both in front of and behind you. You hurt your leg pretty badly when you jumped, so you're probably not climbing back up"
+                "text": "You find yourself ankles deep in the sludge of an old sewer. The dark tunnel extends both in front of and behind you. You hurt your leg pretty badly when you jumped, so you're probably not climbing back up."
             },
             {
                 "required_flags": "",
@@ -599,25 +599,25 @@
         "descriptions": [
             {
                 "required_flags": "",
-                "text": "You’re walking through a long tunnel, it’s as damp and foul smelling as ever"
+                "text": "You’re walking through a long tunnel, it’s as damp and foul smelling as ever."
             }
         ],
         "actions": [
             {
                 "message": "Go forward",
-                "description": "The tunnel keeps going",
+                "description": "The tunnel keeps going.",
                 "required_flags": "tunnel_start",
                 "set_flags": "!tunnel_start, tunnel_at_skeleton"
             },
             {
                 "message": "Go forward",
-                "description": "You see a skeleton laying in the water",
+                "description": "You see a skeleton laying in the water.",
                 "required_flags": "tunnel_at_skeleton",
                 "set_flags": "!tunnel_at_skeleton, tunnel_middle"
             },
             {
                 "message": "Go forward",
-                "description": "It just keeps on going",
+                "description": "It just keeps on going.",
                 "required_flags": "tunnel_middle",
                 "set_flags": "!tunnel_middle, tunnel_end"
             },
@@ -641,19 +641,19 @@
             },
             {
                 "message": "Go back",
-                "description": "Surprisingly it's just as long the other way round",
+                "description": "Surprisingly it's just as long the other way round.",
                 "required_flags": "tunnel_at_skeleton",
                 "set_flags": "!tunnel_at_skeleton, tunnel_start"
             },
             {
                 "message": "Go back",
-                "description": "You come back to the skeleton",
+                "description": "You come back to the skeleton.",
                 "required_flags": "tunnel_middle",
                 "set_flags": "!tunnel_middle, tunnel_at_skeleton"
             },
             {
                 "message": "Go back",
-                "description": "The tunnel keeps going",
+                "description": "The tunnel keeps going.",
                 "required_flags": "tunnel_end",
                 "set_flags": "tunnel_middle, !tunnel_end"
             }
@@ -688,7 +688,7 @@
             },
             {
                 "message": "Head back",
-                "description": "You walk away from the mound of rocks",
+                "description": "You walk away from the mound of rocks.",
                 "go_to_scene": "16"
             }
         ]
@@ -720,14 +720,14 @@
             },
             {
                 "message": "Try to swim out ",
-                "description": "You take a deep breath and squeeze through the hole. The water is freezing cold and you feel like your going to drown",
+                "description": "You take a deep breath and squeeze through the hole. The water is freezing cold and you feel like your going to drown.",
                 "required_flags": "flow_increased, !is_swimming, !bucket_on_head",
                 "perform_once": true,
                 "set_flags": "is_swimming"
             },
             {
                 "message": "Keep swimming",
-                "description": "Your lungs ache as you keep going. You don't know how much further you can go",
+                "description": "Your lungs ache as you keep going. You don't know how much further you can go.",
                 "required_flags": "is_swimming, !swam_more, !bucket_on_head",
                 "set_flags": "swam_more"
             },
@@ -745,7 +745,7 @@
             },
             {
                 "message": "Keep swimming",
-                "description": "You start getting short of breath, but you also feel the water pressure dropping",
+                "description": "You start getting short of breath, but you also feel the water pressure dropping.",
                 "required_flags": "is_swimming, !swam_more, bucket_on_head",
                 "set_flags": "swam_more"
             },
@@ -757,26 +757,26 @@
             },
             {
                 "message": "Swim back",
-                "description": "You get back in the nick of time. Coughing up water as you pull yourself through the hole you think \"that was close\"",
+                "description": "You get back in the nick of time. Coughing up water as you pull yourself through the hole you think \"that was close\".",
                 "required_flags": "is_swimming, !bucket_on_head",
                 "set_flags": "!is_swimming, !swam_more, !swimming_2"
             },
             {
                 "message": "Swim back",
-                "description": "You turn back, finding the hole again with a bucket on your head is hard, but you manage to squeeze through",
+                "description": "You turn back, finding the hole again with a bucket on your head is hard, but you manage to squeeze through.",
                 "required_flags": "is_swimming, bucket_on_head",
                 "set_flags": "!is_swimming, !swam_more, !swimming_2"
             },
             {
                 "message": "Head back",
-                "description": "Speaking of heads, you take the bucket of as you walk away",
+                "description": "Speaking of heads, you take the bucket of as you walk away.",
                 "required_flags": "!is_swimming, bucket_on_head",
                 "set_flags": "!bucket_on_head",
                 "go_to_scene": "16"
             },
             {
                 "message": "Head back",
-                "description": "You wade away in the water",
+                "description": "You wade away in the water.",
                 "required_flags": "!is_swimming, !bucket_on_head",
                 "go_to_scene": "16"
             }
@@ -787,7 +787,7 @@
         "descriptions": [
             {
                 "required_flags": "took_leg, took_arm",
-                "text": "The skeleton has been picked clean, making it unclear for how long it has been here. It could be another unfortunate escapee, one whose fate you’d rather not share. Your presence seems to have cost it an arm and a leg"
+                "text": "The skeleton has been picked clean, making it unclear for how long it has been here. It could be another unfortunate escapee, one whose fate you’d rather not share. Your presence seems to have cost it an arm and a leg."
             },
             {
                 "required_flags": "took_leg",
@@ -829,7 +829,7 @@
             },
             {
                 "message": "Leave the old skeleton",
-                "description": "You leave the skeleton in the stinking water",
+                "description": "You leave the skeleton in the stinking water.",
                 "go_to_scene": "17"
             }
         ]
@@ -868,7 +868,7 @@
             },
             {
                 "message": "Continue sneaking",
-                "description": "TODO get snacked scrub",
+                "description": "TODO get snacked scrub.",
                 "required_flags": "sneaking_gator, !gator_got_gotten",
                 "perform_once": true,
                 "set_flags": "gator_gotem"
@@ -881,13 +881,13 @@
             },
             {
                 "message": "Back away",
-                "description": "You slowly back away from the alligator",
+                "description": "You slowly back away from the alligator.",
                 "required_flags": "!gator_got_gotten",
                 "go_to_scene": "17"
             },
             {
                 "message": "Back away",
-                "description": "You turn away from the hissing alligator",
+                "description": "You turn away from the hissing alligator.",
                 "required_flags": "gator_got_gotten",
                 "go_to_scene": "17"
             }
@@ -955,12 +955,12 @@
             },
             {
                 "message": "Stare at your reflection",
-                "description": "You don't manage to fall in love with your current appearance",
+                "description": "You don't manage to fall in love with your current appearance.",
                 "perform_once": true
             },
             {
                 "message": "Look at something else",
-                "description": "You decide to stop pondering the pond",
+                "description": "You decide to stop pondering the pond.",
                 "go_to_scene": "22"
             }
         ]
@@ -986,7 +986,7 @@
             },
             {
                 "message": "Get out of the water",
-                "description": "You crawl up on one of the slippery cistern sides",
+                "description": "You crawl up on one of the slippery cistern sides.",
                 "set_flags": "23"
             }
         ]
@@ -1026,13 +1026,13 @@
             },
             {
                 "message": "Let the bucket be",
-                "description": "You let the bucket be... for now",
+                "description": "You let the bucket be... for now.",
                 "required_flags": "!has_bucket",
                 "go_to_scene": "22"
             },
             {
                 "message": "Leave the rope",
-                "description": "You let the rope be... for now",
+                "description": "You let the rope be... for now.",
                 "required_flags": "has_bucket",
                 "go_to_scene": "22"
             }

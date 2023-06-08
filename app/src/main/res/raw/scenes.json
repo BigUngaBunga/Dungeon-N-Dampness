@@ -319,8 +319,8 @@
             },
             {
                 "message": "File the bars",
-                "description": "The guard stirs at the screeching sound.",
-                "required_flags": "has_file, !sleepy_guard, !file_bars_1",
+                "description": "The guard stirs at the screeching sound",
+                "required_flags": "has_file, !file_bars_1, !sleepy_guard",
                 "set_flags": "file_bars_1"
             },
             {
@@ -377,6 +377,11 @@
                 "description": "Careful not to trip!",
                 "required_flags": "slab_lifted",
                 "go_to_scene": "15"
+            },
+            {
+                "message": "Return to the doorway",
+                "description": "Sometimes you need to step back before you step forward",
+                "go_to_scene": "6"
             }
         ]
     },

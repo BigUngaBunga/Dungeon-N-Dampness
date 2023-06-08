@@ -10,6 +10,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import big.knaaledge.dungeon_n_dampness.components.GetActionButton
 import big.knaaledge.dungeon_n_dampness.components.SlowText
 import big.knaaledge.dungeon_n_dampness.data.Action
@@ -19,15 +20,15 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
-fun CreateGameScreen() {
+fun CreateGameScreen(navController: NavController) {
     StartGame()
     PrintOutput()
-    AddButtons()
+    AddButtons(navController)
 }
 
 //region Actions
 @Composable
-fun AddButtons(){
+fun AddButtons(navController: NavController){
         var actionsIncluded = 0
         val numberOfRows = 3
         val containerModifier = Modifier.fillMaxWidth()
@@ -36,19 +37,19 @@ fun AddButtons(){
             for (i in 1..numberOfRows){
                 Row(horizontalArrangement = Arrangement.SpaceEvenly, modifier = containerModifier.padding(1.dp, 4.dp)) {
                     val buttonModifier = Modifier.weight(0.25f).height(64.dp).padding(2.dp)
-                    AddActionButton(actionsIncluded++, buttonModifier)
-                    AddActionButton(actionsIncluded++, buttonModifier)
+                    AddActionButton(actionsIncluded++, buttonModifier, navController)
+                    AddActionButton(actionsIncluded++, buttonModifier, navController)
                 }
             }
         }
     }
 
 @Composable
-fun AddActionButton(actionIdex: Int, modifier: Modifier){
+fun AddActionButton(actionIdex: Int, modifier: Modifier, navController: NavController){
     if (actionIdex > possibleActions.size - 1)
-        GetActionButton(modifier = modifier)
+        GetActionButton(modifier = modifier, navController = navController)
     else
-        GetActionButton(possibleActions[actionIdex], modifier)
+        GetActionButton(possibleActions[actionIdex], modifier, navController)
 }
 
 fun StartGame(){
@@ -79,6 +80,19 @@ fun ClearActions(){
             )
             StartScene(inventoryAction.description, 0, includeInventory = false) }
         possibleActions.add(inventoryAction)
+    }
+}
+
+fun EvaluateWinLoss(navController: NavController){
+    if(player.value.AllFlagsSet("file_bars_3")){
+        if(player.value.AllFlagsSet("sleepy_guard")){
+            endString = ""
+            navController.navigate(Screen.Win.route)
+        }
+        else{
+            endString = "> Just as you're about to finish with the bars you're caught red-handed. The guard loudly raises the alarm. Looks like your execution has been moved up on the schedule..."
+            navController.navigate(Screen.Lose.route)
+        }
     }
 }
 //endregion

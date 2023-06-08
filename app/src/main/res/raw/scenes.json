@@ -319,7 +319,7 @@
             {
                 "message": "File the bars",
                 "description": "The guard stirs at the screeching sound",
-                "required_flags": "has_file, !sleepy_guard, !file_bars_1",
+                "required_flags": "has_file, !file_bars_1, !sleepy_guard",
                 "set_flags": "file_bars_1"
             },
             {
@@ -337,7 +337,7 @@
             {
                 "message": "Climb back down",
                 "description": "You climb back down to the floor.",
-                "set_flags": "!file_bars_1, !file_bars_2 !file_bars_3",
+                "set_flags": "!file_bars_1, !file_bars_2, !file_bars_3",
                 "go_to_scene": "2"
             }
         ]
@@ -376,6 +376,11 @@
                 "description": "Careful not to trip!",
                 "required_flags": "slab_lifted",
                 "go_to_scene": "15"
+            },
+            {
+                "message": "Return to the doorway",
+                "description": "Sometimes you need to step back before you step forward",
+                "go_to_scene": "6"
             }
         ]
     },
@@ -396,7 +401,7 @@
                 "message": "Take the keys",
                 "description": "You sneakily slide the key ring of the guards belt. You only make a lot of noise, but the guard doesn’t notice.",
                 "perform_once": true,
-                "set_flags": "has_keys"
+                "set_flags": "has_key"
             },
             {
                 "message": "Wake the guard",

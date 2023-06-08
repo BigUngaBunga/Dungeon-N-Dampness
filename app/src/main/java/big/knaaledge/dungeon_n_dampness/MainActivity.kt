@@ -65,7 +65,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Navigation(){
     val navController = rememberNavController()
-    NavHost(navController, startDestination = Screen.Win.route) {
+    NavHost(navController, startDestination = Screen.Lose.route) {
         composable(route = Screen.Main.route){
             MainMenu(navController)
         }
@@ -76,7 +76,7 @@ fun Navigation(){
             GameOverScreen(navController, endString)
         }
         composable(route = Screen.Game.route){
-            GameScreen()
+            GameScreen(navController)
         }
         composable(route = Screen.Credits.route){
             CreditScreen(navController)
@@ -110,12 +110,12 @@ fun CreditScreen(navController: NavController) {
 }
 
 @Composable
-fun GameScreen() {
+fun GameScreen(navController: NavController) {
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colors.background
     ) {
-        CreateGameScreen()
+        CreateGameScreen(navController)
     }
 }
 
@@ -128,6 +128,16 @@ fun GameOverScreen(navController: NavController, output: String) {
         SlowText(
             message = output,
             modifier = Modifier.padding(16.dp)
+        )
+        SlowText(
+            message = "GAME OVER",
+            modifier = Modifier
+                .offset(0.dp, 300.dp)
+                .padding(16.dp),
+            textAlign = TextAlign.Center,
+            fontWeight = FontWeight.Bold,
+            fontSize = 30.sp,
+            delayTime = 60,
         )
         Box{
             TextButton(
@@ -156,6 +166,16 @@ fun WinScreen(navController: NavController, output: String) {
         SlowText(
             message = output,
             modifier = Modifier.padding(16.dp)
+        )
+        SlowText(
+            message = "YOU WIN!",
+            modifier = Modifier
+                .offset(0.dp, 300.dp)
+                .padding(16.dp),
+            textAlign = TextAlign.Center,
+            fontWeight = FontWeight.Bold,
+            fontSize = 30.sp,
+            delayTime = 60,
         )
         Box{
             TextButton(

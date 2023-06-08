@@ -42,6 +42,13 @@ class Player {
         flags.set("swimming_2", false)
 
         flags.set("gator_got_gotten", false)
+        flags.set("took_leg", false)
+        flags.set("took_arm", false)
+        flags.set("sneaking_gator", false)
+        flags.set("gator_gotem", false)
+
+        flags.set("climbed_out", false)
+
     }
 
     private fun AddItemFlags(){

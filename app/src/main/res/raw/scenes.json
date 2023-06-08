@@ -135,6 +135,7 @@
                 "message": "Unlock the door",
                 "description": "The key turns slowly but steadily and the old lock gives a loud click.",
                 "required_flags": "has_key",
+                "set_flags": "door_unlocked",
                 "go_to_scene": "6"
             },
             {
@@ -337,7 +338,7 @@
             {
                 "message": "Climb back down",
                 "description": "You climb back down to the floor.",
-                "set_flags": "!file_bars_1, !file_bars_2 !file_bars_3",
+                "set_flags": "!file_bars_1, !file_bars_2, !file_bars_3",
                 "go_to_scene": "2"
             }
         ]
@@ -396,7 +397,7 @@
                 "message": "Take the keys",
                 "description": "You sneakily slide the key ring of the guards belt. You only make a lot of noise, but the guard doesn’t notice.",
                 "perform_once": true,
-                "set_flags": "has_keys"
+                "set_flags": "has_key"
             },
             {
                 "message": "Wake the guard",
@@ -778,6 +779,262 @@
                 "description": "You wade away in the water",
                 "required_flags": "!is_swimming, !bucket_on_head",
                 "go_to_scene": "16"
+            }
+        ]
+    },
+    {
+        "scene_index": "20",
+        "descriptions": [
+            {
+                "required_flags": "took_leg, took_arm",
+                "text": "The skeleton has been picked clean, making it unclear for how long it has been here. It could be another unfortunate escapee, one whose fate you’d rather not share. Your presence seems to have cost it an arm and a leg"
+            },
+            {
+                "required_flags": "took_leg",
+                "text": "The skeleton has been picked clean, making it unclear for how long it has been here. It could be another unfortunate escapee, one whose fate you’d rather not share. Now it’s also missing a leg."
+            },
+            {
+                "required_flags": "took_arm",
+                "text": "The skeleton has been picked clean, making it unclear for how long it has been here. It could be another unfortunate escapee, one whose fate you’d rather not share. Now it’s also missing an arm."
+            },
+            {
+                "required_flags": "",
+                "text": "The skeleton has been picked clean, making it unclear for how long it has been here. It could be another unfortunate escapee, one whose fate you’d rather not share."
+            }
+        ],
+        "actions": [
+            {
+                "message": "Pick up leg bone",
+                "description": "The bone seems sturdy.",
+                "required_flags": "!took_leg, !has_arm",
+                "perform_once": true,
+                "set_flags": "took_leg, has_leg"
+            },
+            {
+                "message": "Pick up arm bone",
+                "description": "The bone reminds you of a stick.",
+                "required_flags": "",
+                "perform_once": true,
+                "set_flags": "took_arm, has_arm"
+            },
+            {
+                "message": "Pick up leg bone",
+                "description": "You are already carrying around the arm.",
+                "required_flags": "!took_leg, has_arm"
+            },
+            {
+                "message": "Pick up arm bone",
+                "description": "You are already carrying around the leg.",
+                "required_flags": "!took_arm, has_leg"
+            },
+            {
+                "message": "Leave the old skeleton",
+                "description": "You leave the skeleton in the stinking water",
+                "go_to_scene": "17"
+            }
+        ]
+    },
+    {
+        "scene_index": "21",
+        "descriptions": [
+            {
+                "required_flags": "gator_got_gotten",
+                "text": "The alligator seems a lot less wild now! It’s of a monstrous size, with a maw full of teeth you fear could swallow you whole. Thankfully it can’t bite you with the bone lodged in its mouth."
+            },
+            {
+                "required_flags": "",
+                "text": "A wild alligator appears! It’s of a monstrous size, with a maw full of teeth you fear could swallow you whole. It sits motionless, eyeing you warily."
+            }
+        ],
+        "actions": [
+            {
+                "message": "Throw fetch with the arm",
+                "description": "It’s not a dog. Shame.",
+                "required_flags": "has_arm",
+                "set_flags": "!has_arm"
+            },
+            {
+                "message": "Prop its mouth open with the leg",
+                "description": "It hisses angrily, but the bone seems to hold and it won’t be able to bite you.",
+                "required_flags": "has_leg",
+                "perform_once": true,
+                "set_flags": "!has_leg, gator_got_gotten"
+            },
+            {
+                "message": "Try to sneak past",
+                "description": "You stealthily try to slip by, the alligator growls at you get closer.",
+                "required_flags": "!sneaking_gator, !gator_got_gotten",
+                "set_flags": "sneaking_gator"
+            },
+            {
+                "message": "Continue sneaking",
+                "description": "TODO get snacked scrub",
+                "required_flags": "sneaking_gator, !gator_got_gotten",
+                "perform_once": true,
+                "set_flags": "gator_gotem"
+            },
+            {
+                "message": "Continue past",
+                "description": "You quickly hurry past the frustrated alligator.",
+                "required_flags": "gator_got_gotten",
+                "go_to_scene": "22"
+            },
+            {
+                "message": "Back away",
+                "description": "You slowly back away from the alligator",
+                "required_flags": "!gator_got_gotten",
+                "go_to_scene": "17"
+            },
+            {
+                "message": "Back away",
+                "description": "You turn away from the hissing alligator",
+                "required_flags": "gator_got_gotten",
+                "go_to_scene": "17"
+            }
+        ]
+    },
+    {
+        "scene_index": "22",
+        "descriptions": [
+            {
+                "required_flags": "flow_increased",
+                "text": "The tunnel exits into a larger chamber, a cistern. The smell is noticeably better here. A positive sign, you decide. Though that is soon to change with the sewage pouring in. In the center of the room hangs a bucket, the rope leading upwards through a round opening in the ceiling."
+            },
+            {
+                "required_flags": "",
+                "text": "The tunnel exits into a larger chamber, a cistern. The smell is noticeably better here. A positive sign, you decide. In the center of the room hangs a bucket, the rope leading upwards through a round opening in the ceiling."
+            }
+        ],
+        "actions": [
+            {
+                "message": "Check the water",
+                "description": "Hopefully no more alligators in here.",
+                "go_to_scene": "23"
+            },
+            {
+                "message": "Examine the bucket and rope",
+                "description": "It probably connects to a well up top.",
+                "go_to_scene": "25"
+            },
+            {
+                "message": "Go back to the tunnel",
+                "description": "You head back to the long tunnel.",
+                "go_to_scene": "25"
+            }
+        ]
+    },
+    {
+        "scene_index": "23",
+        "descriptions": [
+            {
+                "required_flags": "flow_increased",
+                "text": "The water is steadily turning murky due to the increased flow of sewage, making it harder to tell how deep it is."
+            },
+            {
+                "required_flags": "",
+                "text": "The water is clearer here than in the sewage tunnel, but not enough for you to tell how deep it is."
+            }
+        ],
+        "actions": [
+            {
+                "message": "Take a dip ",
+                "description": "You dive in… why?",
+                "go_to_scene": "24 "
+            },
+            {
+                "message": "Take a drink",
+                "description": "Yum?",
+                "required_flags": "!flow_increased",
+                "perform_once": true
+            },
+            {
+                "message": "Take a drink",
+                "description": "You cup your hands to drink but decide to cut the endeavor short when a rat swims past.",
+                "required_flags": "flow_increased",
+                "perform_once": true
+            },
+            {
+                "message": "Stare at your reflection",
+                "description": "You don't manage to fall in love with your current appearance",
+                "perform_once": true
+            },
+            {
+                "message": "Look at something else",
+                "description": "You decide to stop pondering the pond",
+                "go_to_scene": "22"
+            }
+        ]
+    },
+    {
+        "scene_index": "24",
+        "descriptions": [
+            {
+                "required_flags": "flow_increased",
+                "text": "You feel rather icky, swimming in the cold murky water. As you begin to wonder why you decided to go for a swim you feel your foot kick against something solid on the bottom."
+            },
+            {
+                "required_flags": "It feels cold but somewhat refreshing. As you begin to wonder why you decided to go for a swim you feel your foot kick against something solid on the bottom.",
+                "text": ""
+            }
+        ],
+        "actions": [
+            {
+                "message": "Rummage the bottom",
+                "description": "You find a boomerang. What was it doing down here?",
+                "perform_once": true,
+                "set_flags": "has_boomerang"
+            },
+            {
+                "message": "Get out of the water",
+                "description": "You crawl up on one of the slippery cistern sides",
+                "set_flags": "23"
+            }
+        ]
+    },
+    {
+        "scene_index": "25",
+        "descriptions": [
+            {
+                "required_flags": "The rope swings slowly, looking rather lonely without the bucket.",
+                "text": "has_bucket"
+            },
+            {
+                "required_flags": "The bucket swings slowly from the rope, taunting you.",
+                "text": ""
+            }
+        ],
+        "actions": [
+            {
+                "message": "Reach for the rope",
+                "description": "It’s too far to reach.",
+                "required_flags": "!flow_increased",
+                "perform_once": true
+            },
+            {
+                "message": "Reach for the rope",
+                "description": "Climb to escape!",
+                "required_flags": "flow_increased",
+                "perform_once": true,
+                "set_flags": "climbed_out"
+            },
+            {
+                "message": "Boomerang the bucket down",
+                "description": "You masterfully cut the rope and the bucket falls into your hands.",
+                "required_flags": "has_boomerang",
+                "perform_once": true,
+                "set_flags": "has_bucket"
+            },
+            {
+                "message": "Let the bucket be",
+                "description": "You let the bucket be... for now",
+                "required_flags": "!has_bucket",
+                "go_to_scene": "22"
+            },
+            {
+                "message": "Leave the rope",
+                "description": "You let the rope be... for now",
+                "required_flags": "has_bucket",
+                "go_to_scene": "22"
             }
         ]
     }

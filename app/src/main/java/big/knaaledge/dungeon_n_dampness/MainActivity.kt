@@ -3,9 +3,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.text.font.FontWeight
@@ -35,6 +37,7 @@ var scenes = mutableStateListOf<Scene>()
 var player = mutableStateOf(Player())
 
 var addedInitialActions = mutableStateOf(false)
+var wroteState = mutableStateOf(false)
 
 class MainActivity : ComponentActivity() {
 
@@ -68,6 +71,7 @@ class MainActivity : ComponentActivity() {
         messageQueue.clear()
         output.clear()
         addedInitialActions.value = false
+        wroteState.value = false
     }
 }
 
@@ -128,29 +132,33 @@ fun GameScreen(navController: NavController) {
 
 @Composable
 fun EndScreen(navController: NavController, state: String, description: String, resetGame: () -> Unit = {}) {
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colors.background
+    Column(
+        modifier = Modifier.fillMaxSize().background(MaterialTheme.colors.background),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        SlowText(
-            message = description,
-            modifier = Modifier.padding(16.dp)
-        )
+
         SlowText(
             message = state,
             modifier = Modifier
-                .offset(0.dp, 300.dp)
                 .padding(16.dp),
             textAlign = TextAlign.Center,
             fontWeight = FontWeight.Bold,
             fontSize = 30.sp,
             delayTime = 60,
+            onFinishedWriting = { wroteState.value = true}
         )
+        if (wroteState.value){
+            SlowText(
+                message = description,
+                modifier = Modifier.padding(16.dp)
+            )
+        }
         Box{
             TextButton(
                 onClick = { navController.navigate(Screen.Main.route); resetGame() },
                 modifier = Modifier
-                    .offset(128.dp, 600.dp)
+                    .offset(0.dp, 16.dp)
                     .size(128.dp, 64.dp)
                     .padding(2.dp),
                 border = BorderStroke(2.dp, Brush.radialGradient(colors = listOf(MaterialTheme.colors.primary, MaterialTheme.colors.primary)))

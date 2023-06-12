@@ -115,7 +115,7 @@ fun EvaluateWinLoss(navController: NavController){
         navController.navigate(Screen.End.route)
     }
     else if (player.value.AllFlagsSet("overslept")){
-        endState = "YOU DIDN'T EVEN TRY"
+        endState = "YOU OVERSLEPT"
         endString = "> You awake with a loud yawn only to notice that two guards are hoisting you out of your cell. Perhaps sleeping wasn't the best course of action."
         navController.navigate(Screen.End.route)
     }

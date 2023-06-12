@@ -47,7 +47,7 @@ fun SlowText(
     modifier: Modifier = Modifier.padding(0.dp, 2.dp),
     textAlign: TextAlign = TextAlign.Left,
     fontWeight: FontWeight = FontWeight.Normal,
-    fontSize: TextUnit = 14.sp,
+    fontSize: TextUnit = 20.sp,
     delayTime: Long = 30
 ) {
     val output = remember{ mutableStateOf("")}

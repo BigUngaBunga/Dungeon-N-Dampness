@@ -135,7 +135,7 @@
         "actions": [
             {
                 "message": "Approach the door",
-                "description": "You step towards the only apparent exit.",
+                "description": "",
                 "required_flags": "!door_unlocked",
                 "go_to_scene": "3"
             },
@@ -152,7 +152,6 @@
             },
             {
                 "message": "Check the ceiling grate",
-                "description": "It’s the only source of light in here.",
                 "go_to_scene": "5"
             }
         ]
@@ -205,7 +204,6 @@
         "actions": [
             {
                 "message": "Inspect the box",
-                "description": "The wooden box catches your eye.",
                 "required_flags": "!box_moved",
                 "go_to_scene": "7"
             },
@@ -393,7 +391,7 @@
         "actions": [
             {
                 "message": "Check the table",
-                "description": "You head on over to the table.",
+                "description": "You head on over to it.",
                 "go_to_scene": "12"
             },
             {
@@ -435,7 +433,7 @@
         "actions": [
             {
                 "message": "Take the keys",
-                "description": "You sneakily slide the key ring of the guards belt. You only make a lot of noise, but the guard doesn’t notice.",
+                "description": "You slide the key ring of the guards belt. You make a lot of noise, but the guard doesn’t seem to notice.",
                 "perform_once": true,
                 "set_flags": "has_key"
             },
@@ -453,7 +451,7 @@
             },
             {
                 "message": "Reach for something else",
-                "description": "Better not risk it.",
+                "description": "",
                 "go_to_scene": "8"
             }
         ]
@@ -496,11 +494,11 @@
         "descriptions": [
             {
                 "required_flags": "!has_book",
-                "text": "The table wobbles as you step closer to it. Atop it rests a moldy tome of herb-lore."
+                "text": "The table wobbles as you step closer. Atop it rests a moldy tome of herb-lore."
             },
             {
                 "required_flags": "has_book",
-                "text": "The table wobbles as you step closer to it. There's nothing but dust and cloth scraps on it."
+                "text": "The table wobbles as you step closer. There's nothing but dust and cloth scraps on it."
             }
         ],
         "actions": [
@@ -614,7 +612,7 @@
                 "message": "Climb back up",
                 "description": "You climb your way back up the slippery wall.",
                 "required_flags": "!ouch",
-                "go_to_scene": "16"
+                "go_to_scene": "9"
             },
             {
                 "message": "Climb back up",
@@ -624,12 +622,19 @@
             },
             {
                 "message": "Go forwards",
-                "description": "You head into the dark tunnel leading forwards.",
+                "description": "",
                 "go_to_scene": "17"
             },
             {
                 "message": "Go backwards",
                 "description": "You should still look where you’re going.",
+                "required_flags": "!flow_increased",
+                "go_to_scene": "18"
+            },
+            {
+                "message": "Go backwards",
+                "description": "You should still look where you’re going.",
+                "required_flags": "rocks_cleared",
                 "go_to_scene": "19"
             }
         ]
@@ -647,23 +652,35 @@
                 "message": "Go forward",
                 "description": "The tunnel keeps going.",
                 "required_flags": "tunnel_start",
-                "set_flags": "!tunnel_start, tunnel_at_skeleton"
+                "set_flags": "!tunnel_start, past_tunnel_start"
             },
             {
                 "message": "Go forward",
                 "description": "You see a skeleton laying in the water.",
+                "required_flags": "past_tunnel_start",
+                "set_flags": "!past_tunnel_start, tunnel_at_skeleton"
+            },
+            {
+                "message": "Go forward",
+                "description": "You leave the skeleton behind.",
                 "required_flags": "tunnel_at_skeleton",
                 "set_flags": "!tunnel_at_skeleton, tunnel_middle"
             },
             {
                 "message": "Go forward",
-                "description": "It just keeps on going.",
+                "description": "Unsurprisingly the tunnel keeps on going!",
                 "required_flags": "tunnel_middle",
-                "set_flags": "!tunnel_middle, tunnel_end"
+                "set_flags": "past_tunnel_middle, !tunnel_middle"
             },
             {
                 "message": "Go forward",
-                "description": "You see some light at the end of the tunnel!",
+                "description": "You finally see the light at the end of the tunnel!",
+                "required_flags": "past_tunnel_middle",
+                "set_flags": "!past_tunnel_middle, tunnel_end"
+            },
+            {
+                "message": "Go towards the light",
+                "description": "You leave the dark tunnel behind you!",
                 "required_flags": "tunnel_end",
                 "go_to_scene": "21"
             },
@@ -681,21 +698,33 @@
             },
             {
                 "message": "Go back",
-                "description": "Surprisingly it's just as long the other way round.",
-                "required_flags": "tunnel_at_skeleton",
-                "set_flags": "!tunnel_at_skeleton, tunnel_start"
+                "description": "You're probably close to the beginning.",
+                "required_flags": "past_tunnel_start",
+                "set_flags": "!past_tunnel_start, tunnel_start"
             },
             {
                 "message": "Go back",
-                "description": "You come back to the skeleton.",
+                "description": "Surprisingly it's just as long the other way round.",
+                "required_flags": "tunnel_at_skeleton",
+                "set_flags": "!tunnel_at_skeleton, past_tunnel_start"
+            },
+            {
+                "message": "Go back",
+                "description": "You back at the skeleton.",
                 "required_flags": "tunnel_middle",
                 "set_flags": "!tunnel_middle, tunnel_at_skeleton"
             },
             {
                 "message": "Go back",
                 "description": "The tunnel keeps going.",
+                "required_flags": "past_tunnel_middle",
+                "set_flags": "tunnel_middle, !past_tunnel_middle"
+            },
+            {
+                "message": "Go back",
+                "description": "You head away from the light.",
                 "required_flags": "tunnel_end",
-                "set_flags": "tunnel_middle, !tunnel_end"
+                "set_flags": "past_tunnel_middle, !tunnel_end"
             }
         ]
     },
@@ -853,7 +882,7 @@
             {
                 "message": "Pick up arm bone",
                 "description": "The bone reminds you of a stick.",
-                "required_flags": "",
+                "required_flags": "!took_arm, !has_leg",
                 "perform_once": true,
                 "set_flags": "took_arm, has_arm"
             },
@@ -902,13 +931,13 @@
             },
             {
                 "message": "Try to sneak past",
-                "description": "You stealthily try to slip by, the alligator growls at you get closer.",
+                "description": "You stealthily try to slip by, the alligator growls as you get closer.",
                 "required_flags": "!sneaking_gator, !gator_got_gotten",
                 "set_flags": "sneaking_gator"
             },
             {
                 "message": "Continue sneaking",
-                "description": "TODO get snacked scrub.",
+                "description": "",
                 "required_flags": "sneaking_gator, !gator_got_gotten",
                 "perform_once": true,
                 "set_flags": "gator_gotem"
@@ -1035,12 +1064,12 @@
         "scene_index": "25",
         "descriptions": [
             {
-                "required_flags": "The rope swings slowly, looking rather lonely without the bucket.",
-                "text": "has_bucket"
+                "required_flags": "has_bucket",
+                "text": "The rope swings slowly, looking rather lonely without the bucket."
             },
             {
-                "required_flags": "The bucket swings slowly from the rope, taunting you.",
-                "text": ""
+                "required_flags": "",
+                "text": "The bucket swings slowly from the rope, taunting you."
             }
         ],
         "actions": [

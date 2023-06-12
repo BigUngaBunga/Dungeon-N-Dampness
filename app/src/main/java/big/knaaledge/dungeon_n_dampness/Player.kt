@@ -30,8 +30,10 @@ class Player {
 
         flags.set("ouch", false)
         flags.set("tunnel_start", true)
+        flags.set("past_tunnel_start", false)
         flags.set("tunnel_at_skeleton", false)
         flags.set("tunnel_middle", false)
+        flags.set("past_tunnel_middle", false)
         flags.set("tunnel_end", false)
 
         flags.set("rocks_cleared", false)

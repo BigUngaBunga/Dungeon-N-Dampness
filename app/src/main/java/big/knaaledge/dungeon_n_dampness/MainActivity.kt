@@ -26,7 +26,7 @@ var output = mutableStateListOf<String>()
 var messageQueue = mutableStateListOf<String>()
 var readLines = mutableStateOf(0)
 var possibleActions = mutableStateListOf<Action>()
-var sceneIndexStack = mutableStateListOf<Int>(1)
+var sceneIndexStack = mutableStateListOf(1)
 
 var endString: String = "> Placeholder"
 var endState: String = "Win/Lose"
@@ -47,13 +47,11 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    //CreateGameScreen()
-                    Navigation()
+                    Navigation { ClearSession(); ReadScenesFromJson() }
                 }
             }
         }
     }
-
     fun ReadScenesFromJson(){
         var reader = JsonReader(this)
         var sceneList = reader.readScenes()
@@ -61,17 +59,28 @@ class MainActivity : ComponentActivity() {
             scenes.add(scene)
         }
     }
+
+    fun ClearSession(){
+        scenes.clear()
+        player.value = Player()
+        sceneIndexStack.clear()
+        sceneIndexStack.add(1)
+        messageQueue.clear()
+        output.clear()
+        addedInitialActions.value = false
+    }
 }
 
+
 @Composable
-fun Navigation(){
+fun Navigation(resetGame: () -> Unit = {}){
     val navController = rememberNavController()
     NavHost(navController, startDestination = Screen.Main.route) {
         composable(route = Screen.Main.route){
             MainMenu(navController)
         }
         composable(route = Screen.End.route){
-            EndScreen(navController, endState, endString)
+            EndScreen(navController, endState, endString, resetGame)
         }
         composable(route = Screen.Game.route){
             GameScreen(navController)
@@ -118,7 +127,7 @@ fun GameScreen(navController: NavController) {
 }
 
 @Composable
-fun EndScreen(navController: NavController, state: String, description: String) {
+fun EndScreen(navController: NavController, state: String, description: String, resetGame: () -> Unit = {}) {
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colors.background
@@ -139,7 +148,7 @@ fun EndScreen(navController: NavController, state: String, description: String) 
         )
         Box{
             TextButton(
-                onClick = { navController.navigate(Screen.Main.route) },
+                onClick = { navController.navigate(Screen.Main.route); resetGame() },
                 modifier = Modifier
                     .offset(128.dp, 600.dp)
                     .size(128.dp, 64.dp)
@@ -197,7 +206,7 @@ fun MainMenu(navController: NavController) {
 @Composable
 fun Title() {
     SlowText(
-        message = "> Dungeons 'n' Dampness",
+        message = "> Dungeons & Dampness",//'n'
         modifier = Modifier
             .offset(0.dp, 200.dp)
             .padding(16.dp),

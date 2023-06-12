@@ -5,11 +5,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import big.knaaledge.dungeon_n_dampness.components.GetActionButton
 import big.knaaledge.dungeon_n_dampness.components.SlowText
@@ -70,7 +66,7 @@ fun ClearActions(){
     possibleActions.clear()
     if (sceneIndexStack.last() != 0 && player.value.AnyFlagSet(player.value.itemFlags.value)){
         var inventoryAction = Action( message = "Check inventory",
-            description = "It's a wonder your pockets still hold up")
+            description = "")
         inventoryAction.action = {
             scenes.get(0).PopAction()
             scenes.get(0).AddAction(
@@ -91,7 +87,7 @@ fun EvaluateWinLoss(navController: NavController){
             navController.navigate(Screen.End.route)
         }
         else{
-            endState = "GAME OVER"
+            endState = "YOU GOT CAUGHT"
             endString = "> Just as you're about to finish with the bars you're caught red-handed. The guard loudly raises the alarm. Looks like your execution has been expedited..."
             navController.navigate(Screen.End.route)
         }
@@ -116,6 +112,11 @@ fun EvaluateWinLoss(navController: NavController){
     else if(player.value.AllFlagsSet("climbed_out")){
         endState = "YOU ESCAPED"
         endString = "> Your muscles strain as you climb up the rope. You emerge through the well into a busy marketplace. You and your sewage-drenched clothes catch some side eye, but you quickly disappear in the crowd."
+        navController.navigate(Screen.End.route)
+    }
+    else if (player.value.AllFlagsSet("overslept")){
+        endState = "YOU DIDN'T EVEN TRY"
+        endString = "> You awake with a loud yawn only to notice that two guards are hoisting you out of your cell. Perhaps sleeping wasn't the best course of action."
         navController.navigate(Screen.End.route)
     }
 }
@@ -161,8 +162,8 @@ fun <T>ClearOutput(vararg messages: T){
     CoroutineScope(Dispatchers.Main).launch {
         delay(100)
         for (t in messages)
-            EnqueueMessage(t.toString())
-
+            if (!t.toString().isNullOrEmpty())
+                EnqueueMessage(t.toString())
     }
 }
 //endregion

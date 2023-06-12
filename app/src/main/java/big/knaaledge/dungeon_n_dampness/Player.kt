@@ -49,6 +49,12 @@ class Player {
 
         flags.set("climbed_out", false)
 
+        flags.set("sleep_1", false)
+        flags.set("sleep_2", false)
+        flags.set("sleep_3", false)
+        flags.set("sleep_4", false)
+        flags.set("overslept", false)
+
     }
 
     private fun AddItemFlags(){

@@ -4,7 +4,7 @@
         "descriptions": [
             {
                 "required_flags": "",
-                "text": "You rummage around in your pockets."
+                "text": "It's a wonder your pockets still hold up."
             }
         ],
         "actions": [
@@ -73,6 +73,41 @@
             {
                 "message": "Go to sleep",
                 "description": "You go back to sleep.",
+                "required_flags": "!sleep_1",
+                "set_flags": "sleep_1",
+                "perform_once": true,
+                "go_to_scene": "1"
+            },
+            {
+                "message": "Go to sleep again",
+                "description": "You barely woke up before you go back to sleep.",
+                "required_flags": "sleep_1, !sleep_2",
+                "set_flags": "sleep_2",
+                "perform_once": true,
+                "go_to_scene": "1"
+            },
+            {
+                "message": "Continue sleeping",
+                "description": "I suppose you didn't sleep well the last two times.",
+                "required_flags": "sleep_2, !sleep_3",
+                "perform_once": true,
+                "set_flags": "sleep_3",
+                "go_to_scene": "1"
+            },
+            {
+                "message": "Snooze some more",
+                "description": "Do you even care about living?",
+                "required_flags": "sleep_3, !sleep_4",
+                "perform_once": true,
+                "set_flags": "sleep_4",
+                "go_to_scene": "1"
+            },
+            {
+                "message": "\"Snooze\" some more",
+                "description": "Well... it's your funeral. Literally.",
+                "required_flags": "sleep_4",
+                "perform_once": true,
+                "set_flags": "overslept",
                 "go_to_scene": "1"
             }
         ]

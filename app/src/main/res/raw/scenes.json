@@ -966,12 +966,20 @@
         "scene_index": "22",
         "descriptions": [
             {
-                "required_flags": "flow_increased",
-                "text": "The tunnel exits into a larger chamber, a cistern. The smell is noticeably better here. A positive sign, you decide. Though that is soon to change with the sewage pouring in. In the center of the room hangs a bucket, the rope leading upwards through a round opening in the ceiling."
+                "required_flags": "flow_increased, !has_bucket",
+                "text": "The tunnel exits into a larger chamber, a cistern. The smell is noticeably better here. A positive sign, you decide. Though that is soon to change with the sewage pouring in. In the center of the room hangs a bucket from a rope leading upwards through a round opening in the ceiling."
+            },
+            {
+                "required_flags": "flow_increased, has_bucket",
+                "text": "The tunnel exits into a larger chamber, a cistern. The smell is noticeably better here. A positive sign, you decide. Though that is soon to change with the sewage pouring in. In the center of the room hangs a rope leading upwards through a round opening in the ceiling."
+            },
+            {
+                "required_flags": "!flow_increased, has_bucket",
+                "text": "The tunnel exits into a larger chamber, a cistern. The smell is noticeably better here. A positive sign, you decide. In the center of the room hangs a rope leading upwards through a round opening in the ceiling."
             },
             {
                 "required_flags": "",
-                "text": "The tunnel exits into a larger chamber, a cistern. The smell is noticeably better here. A positive sign, you decide. In the center of the room hangs a bucket, the rope leading upwards through a round opening in the ceiling."
+                "text": "The tunnel exits into a larger chamber, a cistern. The smell is noticeably better here. A positive sign, you decide. In the center of the room hangs a bucket from a rope leading upwards through a round opening in the ceiling."
             }
         ],
         "actions": [
@@ -981,7 +989,7 @@
                 "go_to_scene": "23"
             },
             {
-                "message": "Examine the bucket and rope",
+                "message": "Examine the rope",
                 "description": "It probably connects to a well up top.",
                 "go_to_scene": "25"
             },
@@ -997,7 +1005,7 @@
         "descriptions": [
             {
                 "required_flags": "flow_increased",
-                "text": "The water is steadily turning murky due to the increased flow of sewage, making it harder to tell how deep it is."
+                "text": "The rising water is steadily turning murky due to the increased flow of sewage, making it harder to tell how deep it is."
             },
             {
                 "required_flags": "",
@@ -1008,7 +1016,7 @@
             {
                 "message": "Take a dip ",
                 "description": "You dive in… why?",
-                "go_to_scene": "24 "
+                "go_to_scene": "24"
             },
             {
                 "message": "Take a drink",
@@ -1024,7 +1032,7 @@
             },
             {
                 "message": "Stare at your reflection",
-                "description": "You don't manage to fall in love with your current appearance.",
+                "description": "You should probably do something more productive.",
                 "perform_once": true
             },
             {
@@ -1042,8 +1050,8 @@
                 "text": "You feel rather icky, swimming in the cold murky water. As you begin to wonder why you decided to go for a swim you feel your foot kick against something solid on the bottom."
             },
             {
-                "required_flags": "It feels cold but somewhat refreshing. As you begin to wonder why you decided to go for a swim you feel your foot kick against something solid on the bottom.",
-                "text": ""
+                "required_flags": "",
+                "text": "It feels cold but somewhat refreshing. As you begin to wonder why you decided to go for a swim you feel your foot kick against something solid on the bottom."
             }
         ],
         "actions": [
@@ -1056,7 +1064,7 @@
             {
                 "message": "Get out of the water",
                 "description": "You crawl up on one of the slippery cistern sides.",
-                "set_flags": "23"
+                "go_to_scene": "23"
             }
         ]
     },
@@ -1064,26 +1072,32 @@
         "scene_index": "25",
         "descriptions": [
             {
-                "required_flags": "has_bucket",
-                "text": "The rope swings slowly, looking rather lonely without the bucket."
+                "required_flags": "increased_flow, has_bucket",
+                "text": "The rope swings slowly, a bit above the water, looking rather lonely without the bucket."
+            },
+            {
+                "required_flags": "increased_flow, !has_bucket",
+                "text": "The bucket swings slowly from the rope a bit above the water."
+            },
+            {
+                "required_flags": "!increased_flow, has_bucket",
+                "text": "The rope swings slowly, looking rather lonely without the bucket. It's quite far up."
             },
             {
                 "required_flags": "",
-                "text": "The bucket swings slowly from the rope, taunting you."
+                "text": "The bucket swings slowly from the rope, taunting you. It's quite far up."
             }
         ],
         "actions": [
             {
                 "message": "Reach for the rope",
                 "description": "It’s too far to reach.",
-                "required_flags": "!flow_increased",
-                "perform_once": true
+                "required_flags": "!flow_increased"
             },
             {
                 "message": "Reach for the rope",
                 "description": "Climb to escape!",
                 "required_flags": "flow_increased",
-                "perform_once": true,
                 "set_flags": "climbed_out"
             },
             {
@@ -1103,7 +1117,7 @@
                 "message": "Leave the rope",
                 "description": "You let the rope be... for now.",
                 "required_flags": "has_bucket",
-                "go_to_scene": "22"
+                "go_to_scene": "20"
             }
         ]
     }

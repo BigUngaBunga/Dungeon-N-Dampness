@@ -38,6 +38,7 @@ var player = mutableStateOf(Player())
 
 var addedInitialActions = mutableStateOf(false)
 var wroteState = mutableStateOf(false)
+var skipMessages = mutableStateOf(false)
 
 class MainActivity : ComponentActivity() {
 

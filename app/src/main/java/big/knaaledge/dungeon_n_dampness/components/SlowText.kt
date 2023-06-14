@@ -15,12 +15,11 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class SlowTextContainer(val message: String,
-                        val output: MutableState<String>){
+                        val output: MutableState<String>,
+                        var delayTime: Long){
     suspend fun UpdateTextSlowly(readSlowly: Boolean,
-                                 delayTime : Long,
                                  newLineFactor: Long = 3,
                                  punctuationFactor : Long = 3){
-
         if (!readSlowly){
             output.value = message
             return
@@ -36,6 +35,8 @@ class SlowTextContainer(val message: String,
                 delay(delayTime)
         }
     }
+
+    fun SkipText(){ delayTime /= 10 }
 }
 
 
@@ -43,15 +44,16 @@ class SlowTextContainer(val message: String,
 fun SlowText(
     message: String,
     readSlowly: Boolean = true,
+    skipMessage: Boolean = false,
     onFinishedWriting: () -> Unit = {},
     modifier: Modifier = Modifier.padding(0.dp, 2.dp),
     textAlign: TextAlign = TextAlign.Left,
     fontWeight: FontWeight = FontWeight.Normal,
     fontSize: TextUnit = 20.sp,
-    delayTime: Long = 30
+    delayTime: Long = 20
 ) {
     val output = remember{ mutableStateOf("")}
-    var textContainer = remember { SlowTextContainer(message, output) }
+    var textContainer = remember { SlowTextContainer(message, output, delayTime) }
 
     Text(
         text = "${output.value}",
@@ -61,13 +63,16 @@ fun SlowText(
         fontSize = fontSize,
     )
 
+    if (skipMessage)
+        textContainer.SkipText()
+
     LaunchedEffect(key1 = textContainer){
         coroutineScope{
             var writingJob = launch{
-                textContainer.UpdateTextSlowly(readSlowly = readSlowly,
-                                                delayTime = delayTime, newLineFactor = 5)}
+                textContainer.UpdateTextSlowly(readSlowly = readSlowly, newLineFactor = 5)}
             writingJob.join()
-            onFinishedWriting()
+            if(readSlowly)
+                onFinishedWriting()
         }
     }
 }

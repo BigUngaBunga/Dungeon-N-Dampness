@@ -53,17 +53,17 @@ fun StartGame(){
         return
     addedInitialActions.value = true
     ClearOutput(scenes[sceneIndexStack.last()].GetDescription(player.value))
-    ClearActions()
+    possibleActions.clear()
     scenes[sceneIndexStack.last()].GetActions(possibleActions, player.value)
 }
 
 fun UpdateActions(){
-    ClearActions()
+    possibleActions.clear()
     scenes[sceneIndexStack.last()].GetActions(possibleActions, player.value)
+    AddInventoryAction()
 }
 
-fun ClearActions(){
-    possibleActions.clear()
+fun AddInventoryAction(){
     if (sceneIndexStack.last() != 0 && player.value.AnyFlagSet(player.value.itemFlags.value)){
         var inventoryAction = Action( message = "Check inventory",
             description = "")
@@ -134,21 +134,27 @@ fun PrintOutput() {
         items(output){message ->
             SlowText(
                 message = message, readSlowly = readLines.value <= output.lastIndexOf(message),
-                onFinishedWriting = {DequeueMessage(); readLines.value++ },
+                onFinishedWriting = {DequeueMessage(); readLines.value++ }, skipMessage = skipMessages.value
             )
         }
     }
 }
 
 fun DequeueMessage(){
-    if (messageQueue.size <= 0)
+    if (messageQueue.size <= 0){
+        skipMessages.value = false
         return
+    }
     var message = messageQueue.first()
     messageQueue.removeFirst()
     output.add("> $message")
+    if (messageQueue.size == 0)
+        skipMessages.value = false
 }
 
-fun EnqueueMessage(message: String){
+fun EnqueueMessage(message: String, skipToThis: Boolean = false){
+    if (skipToThis)
+        skipMessages.value = true
     messageQueue.add(message)
     if (readLines.value >= output.size)
         DequeueMessage()
